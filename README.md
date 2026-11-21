@@ -40,7 +40,7 @@ public/             index.html, app.js, style.css (no build step)
 tests/              test_rules.py, test_tools.py, test_api.py
 checks/             check_set.csv, run_checks.py, check_results.csv
 analysis/           discovery notebooks as scripts, findings.json
-docs/ (outside repo) discovery note, architecture note, SRS, RTM, deck
+docs/deliverables/ discovery note, architecture note, SRS, RTM, deck
 ```
 
 ## Run locally

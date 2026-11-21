@@ -1,0 +1,106 @@
+{
+ "file": "AUD-20261014-WA0007.ogg",
+ "model": "google/gemini-2.5-pro",
+ "languages": [
+  "Bengali",
+  "English"
+ ],
+ "speakers": [
+  "Taposhi"
+ ],
+ "transcript_original": "[00:00] Subhojit da, ami Taposhi bolchi, ki bole, Hooghly godown theke. [00:06] Ekta kotha jananor chhilo, [00:09] March na February, February te hoyto, haan February te, [00:15] notun software chalu howar por theke, system e je bin bole, [00:21] toh pickerra shekhan thekei maal tole, [00:25] beshirbhag toh ekhan thekei maal tole, maane samner rack theke, jeta samne rakha ache, oi rack theke. [00:32] Toh aisle 13 ba 14, aisle 14, haan aisle 14 er pechoner dike purono lot gulo ekhono obdi porei ache. [00:41] Beshirbhag dhoro tomar, ki bole, ki bole, Cardio, aar dhoro Pain, oishoberi. [00:50] Toh beshirbhag toh Cardio aar Pain er i lot gulo pore ache. [00:53] Toh kichu lot toh like February ba March theke noreini. Beshirbhag March thekei noreini. [01:00] Aaj koyekta dekhlam giye, du-ekta January-February, oitar January-February, haan, January-February moddhei 60 days, 50-60 days er block e chole jabe. [01:14] Toh Pradip da je achen amader, Pradip da, haan Pradip da, software er lokeder jiggesh korechilen. [01:22] Ora bolche je batch roll naki ashbe, phase two, phase two theke, haan phase two theke. [01:31] Aar phase two ekhon, ekhon January. [01:34] Toh edike godown puro 95-96% bolte paro, 95-96% puro bhorti ekhon obdi. [01:44] Aar CDC theke tomar ashtei thakche. [01:47] Toh purono lot guloke ami haate beche tulbo na ki korbo? [01:53] Ektu janaben amake dada, noile pore puro shobgulo destroy kortei hobe amake.",
+ "translation_english": "[00:00] Subhojit da, this is Taposhi speaking, from the, what's it called, Hooghly godown. [00:06] There was something to inform you about. [00:09] Since the new software started in March or February, probably in February, yes in February, [00:15] the system shows something called a 'bin', [00:21] and the pickers pick the goods from there. [00:25] Most of them pick from there, meaning from the front rack, the one that is kept in front, from that rack. [00:32] So, in aisle 13 or 14, aisle 14, yes, behind aisle 14, the old lots are still lying there. [00:41] Most of them are, let's say, what's it called, what's it called, Cardio, and say, Pain, those kinds of things. [00:50] So mostly, lots of Cardio and Pain are lying there. [00:53] So, some lots, like, haven't moved since February or March. Most haven't moved since March. [01:00] Today I went and saw a few, one or two will go into the 60-day, 50-60 day block within January-February, that one's January-February, yes, within January-February. [01:14] So, our Pradip da, Pradip da, yes Pradip da, had asked the software people. [01:22] They are saying that a 'batch roll' will supposedly come, in phase two, from phase two, yes from phase two. [01:31] And phase two is now, now it's January. [01:34] So, on this side, the godown is completely, you can say 95-96%, 95-96% completely full until now. [01:44] And from the CDC, your stock keeps coming. [01:47] So, should I manually pick and lift the old lots, or what should I do? [01:53] Please let me know, dada, otherwise later I will have to destroy all of them.",
+ "factual_claims": [
+  {
+   "claim": "The speaker's name is Taposhi and she is calling from the Hooghly godown.",
+   "timestamp": "00:01-00:06",
+   "exact_numbers_codes_names_spoken": [
+    "Taposhi",
+    "Hooghly godown"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "A new software was implemented, likely in February.",
+   "timestamp": "00:11-00:17",
+   "exact_numbers_codes_names_spoken": [
+    "February",
+    "March"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "Old lots are lying behind aisle 14.",
+   "timestamp": "00:33-00:40",
+   "exact_numbers_codes_names_spoken": [
+    "aisle 13",
+    "aisle 14"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The old lots are mostly of Cardio and Pain products.",
+   "timestamp": "00:42-00:52",
+   "exact_numbers_codes_names_spoken": [
+    "Cardio",
+    "Pain"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "Some lots have not moved since February or March.",
+   "timestamp": "00:54-01:00",
+   "exact_numbers_codes_names_spoken": [
+    "February",
+    "March"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "Some items will enter the 50-60 day block by January-February.",
+   "timestamp": "01:04-01:14",
+   "exact_numbers_codes_names_spoken": [
+    "January-February",
+    "60 days",
+    "50-60 days"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "Pradip da was told by the software team that a 'batch roll' feature will come in Phase Two.",
+   "timestamp": "01:15-01:27",
+   "exact_numbers_codes_names_spoken": [
+    "Pradip da",
+    "batch roll",
+    "phase two"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "Phase Two is scheduled for January.",
+   "timestamp": "01:31-01:34",
+   "exact_numbers_codes_names_spoken": [
+    "phase two",
+    "January"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The godown is 95-96% full.",
+   "timestamp": "01:37-01:43",
+   "exact_numbers_codes_names_spoken": [
+    "95-96%"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "Stock continues to arrive from the CDC.",
+   "timestamp": "01:44-01:47",
+   "exact_numbers_codes_names_spoken": [
+    "CDC"
+   ],
+   "confidence": "high"
+  }
+ ],
+ "unclear_passages": []
+}

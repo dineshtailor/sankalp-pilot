@@ -1,0 +1,87 @@
+{
+ "file": "CALL_REC_9935xxxx_20260930.m4a",
+ "model": "google/gemini-2.5-pro",
+ "languages": [
+  "Hindi",
+  "English"
+ ],
+ "speakers": [
+  "Male Speaker"
+ ],
+ "transcript_original": "[00:00] Hello Sharma ji, main Gupta bol raha hoon, woh Royal Pharma se, Gorakhpur se sir. [00:06] Teen hafte ho gaye almost abhi Amoxclav aur Azithro aa hi nahi rahe. [00:11] Lucknow C&F wale bolte hai stocks nahi hai. [00:14] Har baar order cancel ho jaata hai sir. [00:16] Yahan ek naya 200 bed ka hospital khula hai. [00:20] Unhone aapke products ko order diya hai. Usme chheh item short hai. [00:26] Order loon ya nahi sir? Aap bataiye. [00:29] Pichle mahine humne September ka anti-infective wala order doosri company ko de diya hai. [00:34] Kya karein? Mareez intezaar nahi karta aur sir aap scheme mein circular bhejte rehte ho. [00:39] 10+2 par maal, maal hi nahi hai toh scheme ka kya karein? [00:44] Humein scheme nahi, maal chahiye. Prayagraj aur Varanasi wali nayi parties bhi hai, yehi bol rahi hai. [00:51] Please Lucknow se baat kijiye ya Mumbai mein bhi decide karta hai.",
+ "translation_english": "[00:00] Hello Sharma ji, this is Gupta speaking, from that Royal Pharma, from Gorakhpur, sir. [00:06] It's been almost three weeks now, Amoxclav and Azithro are just not arriving. [00:11] The Lucknow C&F people say there are no stocks. [00:14] The order gets cancelled every time, sir. [00:16] A new 200-bed hospital has opened here. [00:20] They have placed an order for your products. In that, six items are short. [00:26] Should I take the order or not, sir? You tell me. [00:29] Last month, we gave the September anti-infective order to another company. [00:34] What to do? The patient doesn't wait, and sir, you keep sending circulars about schemes. [00:39] 10+2, but if there are no goods, if there are no goods at all, what to do with the scheme? [00:44] We don't need a scheme, we need the goods. The new parties from Prayagraj and Varanasi are also there, they are saying the same thing. [00:51] Please speak to Lucknow or it is also decided in Mumbai.",
+ "factual_claims": [
+  {
+   "claim": "The speaker identifies himself as Gupta from Royal Pharma in Gorakhpur.",
+   "timestamp": "00:01",
+   "exact_numbers_codes_names_spoken": [
+    "Gupta",
+    "Royal Pharma",
+    "Gorakhpur"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "Amoxclav and Azithro have not been arriving for almost three weeks.",
+   "timestamp": "00:06",
+   "exact_numbers_codes_names_spoken": [
+    "three weeks",
+    "Amoxclav",
+    "Azithro"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The Lucknow C&F says there is no stock.",
+   "timestamp": "00:11",
+   "exact_numbers_codes_names_spoken": [
+    "Lucknow C&F"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "A new 200-bed hospital has opened.",
+   "timestamp": "00:18",
+   "exact_numbers_codes_names_spoken": [
+    "200 bed"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The new hospital placed an order which is short by six items.",
+   "timestamp": "00:21",
+   "exact_numbers_codes_names_spoken": [
+    "chheh item",
+    "six items"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The September anti-infective order was given to another company.",
+   "timestamp": "00:29",
+   "exact_numbers_codes_names_spoken": [
+    "September",
+    "anti-infective"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "Circulars are being sent for a 10+2 scheme.",
+   "timestamp": "00:39",
+   "exact_numbers_codes_names_spoken": [
+    "10+2"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "New parties from Prayagraj and Varanasi are reporting the same issue.",
+   "timestamp": "00:47",
+   "exact_numbers_codes_names_spoken": [
+    "Prayagraj",
+    "Varanasi"
+   ],
+   "confidence": "high"
+  }
+ ],
+ "unclear_passages": []
+}

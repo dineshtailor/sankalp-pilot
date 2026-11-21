@@ -1,0 +1,90 @@
+{
+ "file": "AUD-20261003-WA0011.ogg",
+ "model": "google/gemini-2.5-pro",
+ "languages": [
+  "Telugu",
+  "Hindi",
+  "English"
+ ],
+ "speakers": [
+  "Kiran"
+ ],
+ "transcript_original": "[00:00] Naveen, Kiran here. Quarter close aindi kada. So quick update ichesta. [00:08] Q2 incentive gaya, poora gaya. 100% primary pe hi payout hai. [00:13] 96 pe zero. Naaku telisi policy adhe. [00:17] June lo em chesamo gurtunda? Last 10 days lo push billing. [00:21] Almost 1/3rd of quarter last week lone vachindi. Is baar bhi nahi hua. [00:27] Deccan C&F lo Amox class ledu, Monti C ledu, scheme items ki nahi hai. Toh push kya karoge? [00:34] Phir bhi Guntur lo New Enterprises last week almost 8 lakhs uthaya. 10+2 ani cheppi bola. [00:41] Expiry ka tension mat lo. Company company vapas le leti hai. NE hi claim pettandi. [00:47] Aa claim loss mana P&L lo raadu kada. Finance di. December target already 12% up hai. [00:53] So same so same December me bhi nuvvu kuda ippati nunchi mi parties ni ready ga pettuko. Sare? Monday call chesta.",
+ "translation_english": "[00:00] Naveen, Kiran here. The quarter has closed, right? So I'll give a quick update. [00:08] The Q2 incentive is gone, completely gone. The payout is on 100% primary sales only. [00:13] At 96, it's zero. As far as I know, that is the policy. [00:17] Do you remember what we did in June? Push billing in the last 10 days. [00:21] Almost 1/3rd of the quarter's sales came in the last week itself. This time too, it didn't happen. [00:27] At Deccan C&F, there is no Amox class, no Monti C, and no scheme items. So what will you push? [00:34] Still, in Guntur, New Enterprises lifted almost 8 lakhs last week. I told them it's 10+2. [00:41] Don't worry about expiry. The company... the company takes it back. Just file an NE (Near Expiry) claim. [00:47] That claim loss won't come in our P&L, right? It's a Finance thing. The December target is already 12% up. [00:53] So same... so in the same December also, you too start getting your parties ready from now on. Okay? I'll call on Monday.",
+ "factual_claims": [
+  {
+   "claim": "The Q2 incentive is lost because the payout is only on 100% primary sales achievement.",
+   "timestamp": "00:08",
+   "exact_numbers_codes_names_spoken": [
+    "Q2",
+    "100%"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "At 96% achievement, the incentive payout is zero.",
+   "timestamp": "00:14",
+   "exact_numbers_codes_names_spoken": [
+    "96"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "In June, almost one-third of the quarter's sales came from push billing in the last 10 days.",
+   "timestamp": "00:17",
+   "exact_numbers_codes_names_spoken": [
+    "June",
+    "10 days",
+    "1/3rd"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "Deccan C&F does not have stock of 'Amox class', 'Monti C', or scheme items.",
+   "timestamp": "00:27",
+   "exact_numbers_codes_names_spoken": [
+    "Deccan C&F",
+    "Amox class",
+    "Monti C"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "New Enterprises in Guntur purchased stock worth almost 8 lakhs last week.",
+   "timestamp": "00:34",
+   "exact_numbers_codes_names_spoken": [
+    "Guntur",
+    "New Enterprises",
+    "8 lakhs"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "A 10+2 scheme was offered.",
+   "timestamp": "00:39",
+   "exact_numbers_codes_names_spoken": [
+    "10+2"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The company accepts returns for near expiry (NE) products, and the resulting claim loss does not appear on the P&L.",
+   "timestamp": "00:41",
+   "exact_numbers_codes_names_spoken": [
+    "NE",
+    "P&L"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The December sales target is already 12% higher.",
+   "timestamp": "00:51",
+   "exact_numbers_codes_names_spoken": [
+    "December",
+    "12%"
+   ],
+   "confidence": "high"
+  }
+ ],
+ "unclear_passages": []
+}

@@ -1,0 +1,110 @@
+{
+ "file": "AUD-20261013-WA0003.ogg",
+ "model": "google/gemini-2.5-pro",
+ "languages": [
+  "English"
+ ],
+ "speakers": [
+  "Vaishali"
+ ],
+ "transcript_original": "[00:00] Hi Kavita, Vaishali here. So two three things before Thursday. [00:05] Rohan's office wants forecast accuracy for the review, so I'll put in the usual chart. [00:11] MAPEs in the same band as always around 14 at SKU month. [00:16] So tell me if you want it by, you know, TA as well. [00:19] Second, Tiwari from Lucknow called. That's the third time this quarter. [00:25] I have done another top-up from the buffer, Amox Clav and Azithro. [00:30] So the STO is sitting with you for like sign-off. [00:35] Hooghly on the other hand wants to hold August and September. [00:38] Which also reminds the allocation tab is still on the FY25 split. [00:44] And we never closed the FY26 review after the Cipla work. [00:50] So can we put it on the same agenda? No rush, let me know. And also yes, the sales still hasn't sent the September overlay. [01:00] Uh, they said the 15th and it will be like one number again. [01:05] So I'll spread it like last time only. Oh, and the vendor wants a demo slot next week. So let me know if you want to sit in. Okay? And yeah, I'll wait for your response. Bye.",
+ "translation_english": "[00:00] Hi Kavita, Vaishali here. So two three things before Thursday. [00:05] Rohan's office wants forecast accuracy for the review, so I'll put in the usual chart. [00:11] MAPEs in the same band as always around 14 at SKU month. [00:16] So tell me if you want it by, you know, TA as well. [00:19] Second, Tiwari from Lucknow called. That's the third time this quarter. [00:25] I have done another top-up from the buffer, Amox Clav and Azithro. [00:30] So the STO is sitting with you for like sign-off. [00:35] Hooghly on the other hand wants to hold August and September. [00:38] Which also reminds the allocation tab is still on the FY25 split. [00:44] And we never closed the FY26 review after the Cipla work. [00:50] So can we put it on the same agenda? No rush, let me know. And also yes, the sales still hasn't sent the September overlay. [01:00] Uh, they said the 15th and it will be like one number again. [01:05] So I'll spread it like last time only. Oh, and the vendor wants a demo slot next week. So let me know if you want to sit in. Okay? And yeah, I'll wait for your response. Bye.",
+ "factual_claims": [
+  {
+   "claim": "Rohan's office wants forecast accuracy for the review before Thursday.",
+   "timestamp": "00:05",
+   "exact_numbers_codes_names_spoken": [
+    "Rohan",
+    "Thursday"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "MAPEs are around 14 at SKU month.",
+   "timestamp": "00:11",
+   "exact_numbers_codes_names_spoken": [
+    "MAPEs",
+    "14",
+    "SKU"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "Tiwari from Lucknow called for the third time this quarter.",
+   "timestamp": "00:19",
+   "exact_numbers_codes_names_spoken": [
+    "Tiwari",
+    "Lucknow",
+    "third"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "A top-up was done from the buffer for Amox Clav and Azithro.",
+   "timestamp": "00:25",
+   "exact_numbers_codes_names_spoken": [
+    "Amox Clav",
+    "Azithro"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "An STO is pending sign-off.",
+   "timestamp": "00:30",
+   "exact_numbers_codes_names_spoken": [
+    "STO"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "Hooghly wants to hold August and September orders/stock.",
+   "timestamp": "00:35",
+   "exact_numbers_codes_names_spoken": [
+    "Hooghly",
+    "August",
+    "September"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The allocation tab is still on the FY25 split.",
+   "timestamp": "00:38",
+   "exact_numbers_codes_names_spoken": [
+    "FY25"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The FY26 review after the Cipla work was never closed.",
+   "timestamp": "00:44",
+   "exact_numbers_codes_names_spoken": [
+    "FY26",
+    "Cipla"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The sales team has not sent the September overlay.",
+   "timestamp": "00:56",
+   "exact_numbers_codes_names_spoken": [
+    "September"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The sales team said they would provide the overlay on the 15th.",
+   "timestamp": "01:00",
+   "exact_numbers_codes_names_spoken": [
+    "15th"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "A vendor wants a demo slot next week.",
+   "timestamp": "01:08",
+   "exact_numbers_codes_names_spoken": [],
+   "confidence": "high"
+  }
+ ],
+ "unclear_passages": []
+}

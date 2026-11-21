@@ -1,0 +1,105 @@
+{
+ "file": "AUD-20261001-WA0004.ogg",
+ "model": "google/gemini-2.5-pro",
+ "languages": [
+  "Punjabi",
+  "English"
+ ],
+ "speakers": [
+  "Gurpreet"
+ ],
+ "transcript_original": "[00:00] Sat Sri Akal Sandeep ji, main Gurpreet bol reha. apni jehdi hai, apni Ganesh Pharma Traders to. [00:07] apni situated hai apni Ludhiana vich. [00:09] Acha do gallan si giyan. [00:11] September, nahi September nahi, October vich. [00:14] October de aakhir vich. Nahi nahi, September de aakhir vich. [00:17] Tuhade MR ne sanu ki kitta, Monte LC, jehdi tuhadi koi 10+2 ya 10+... 10+2 scheme te [00:27] tuhadi koi 1000 strip de naal 150 de kareeb strip chaka ti. [00:34] Hun saadi aam vikri mahine di 5 to 600 hai gi. [00:38] Chalo target si ga, poora kar ditta. [00:42] par ki naam hai ehda... par Amox Club bilkul vi hai ni saade kol. [00:48] Asi 22 tareekh nu vi order kitta, fer appan shayad 30 tareekh nu vi order kitta si ga. [00:56] Dovaan vaari apne Gurugram C&F ne pata nahi order cancel kar ditta. [01:02] Kehnde stock hi hai ni. [01:04] Fer appan April, May, July... May, nahi July vich [01:09] haan, July vich vi ehi hoya. [01:12] Fer August, September... August vich vi thoda stock si ga saade kol. [01:17] Hun tuhanu pata hai monsoon chal reha. [01:21] Te doctor roz apni eh jehdi ki hai, Amox Club jehda vi hai ga eh, eh likh rahe ne. [01:28] Te main apni partiyan nu dujeyan, duje koi company hai gi, ohnu de rahe, ohda brand vech reha. [01:35] Hun mainu MR, main tuhade MR nu fer call kitta. [01:38] Oh mainu fer kehan deya ki Monte LC te fer scheme aan di hai. [01:43] Oh vi pata nahi December ya November ch tuhadi navi scheme aan di hai. [01:49] Hun Sandeep ji, mere kol pehle ton hi do to tin mahine da Monte LC da stock peya hoya. [01:55] Pehlan tusi jehdi Amox Club jehdi vi hai, eh mainu bhejo te ho sake te mainu call karo ek vaar.",
+ "translation_english": "[00:00] Hello Sandeep ji, this is Gurpreet speaking. From our... from our Ganesh Pharma Traders. [00:07] It's situated in our Ludhiana. [00:09] Okay, there were two things. [00:11] September... no, not September, in October. [00:14] At the end of October. No, no, at the end of September. [00:17] Your MR, what he did was, for Monte LC, which was on your 10+2 or 10+... 10+2 scheme, [00:27] along with some 1000 strips of yours, he made us take around 150 strips. [00:34] Now, our normal monthly sale is 500 to 600. [00:38] Anyway, it was a target, we completed it. [00:42] but what's its name... but we don't have Amox Club at all. [00:48] We placed an order on the 22nd as well, then we probably placed an order on the 30th as well. [00:56] Both times, our Gurugram C&F, I don't know, cancelled the order. [01:02] They say there is no stock. [01:04] Then we... April, May, July... May, no, in July, [01:09] yes, the same thing happened in July too. [01:12] Then August, September... In August too, we had a little stock. [01:17] Now, you know the monsoon is going on. [01:21] And doctors are prescribing this daily, whatever this is, Amox Club, whatever it is, they are prescribing it. [01:28] And I am giving my parties others', some other company's, I'm giving that, selling their brand. [01:35] Now the MR, I called your MR again. [01:38] He is again telling me that a scheme is coming again for Monte LC. [01:43] That too, I don't know, in December or November your new scheme is coming. [01:49] Now Sandeep ji, I already have two to three months' stock of Monte LC with me. [01:55] First, you send me this Amox Club, whatever it is, and if possible, call me once.",
+ "factual_claims": [
+  {
+   "claim": "The speaker is Gurpreet from Ganesh Pharma Traders, located in Ludhiana.",
+   "timestamp": "00:01",
+   "exact_numbers_codes_names_spoken": [
+    "Gurpreet",
+    "Ganesh Pharma Traders",
+    "Ludhiana"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "At the end of September, an MR pushed stock of Monte LC on a 10+2 scheme, making them take around 150 strips.",
+   "timestamp": "00:16",
+   "exact_numbers_codes_names_spoken": [
+    "September",
+    "MR",
+    "Monte LC",
+    "10+2 scheme",
+    "150 strip"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The speaker's normal monthly sale is 500 to 600 units.",
+   "timestamp": "00:35",
+   "exact_numbers_codes_names_spoken": [
+    "5 to 600"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "They have no stock of Amox Club.",
+   "timestamp": "00:45",
+   "exact_numbers_codes_names_spoken": [
+    "Amox Club"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "Orders for Amox Club placed on the 22nd and 30th were cancelled by the Gurugram C&F, who cited no stock.",
+   "timestamp": "00:50",
+   "exact_numbers_codes_names_spoken": [
+    "22 tareekh",
+    "30 tareekh",
+    "Gurugram C&F"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The same stock-out issue for Amox Club also occurred in July.",
+   "timestamp": "01:08",
+   "exact_numbers_codes_names_spoken": [
+    "July"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "Due to the unavailability of Amox Club, the speaker is selling a competitor's brand.",
+   "timestamp": "01:28",
+   "exact_numbers_codes_names_spoken": [
+    "Amox Club"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The MR has informed him that a new scheme for Monte LC is expected in November or December.",
+   "timestamp": "01:39",
+   "exact_numbers_codes_names_spoken": [
+    "MR",
+    "Monte LC",
+    "December",
+    "November"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The speaker already has a two to three-month supply of Monte LC stock.",
+   "timestamp": "01:50",
+   "exact_numbers_codes_names_spoken": [
+    "do to tin mahine",
+    "Monte LC"
+   ],
+   "confidence": "high"
+  }
+ ],
+ "unclear_passages": [
+  {
+   "timestamp": "00:27",
+   "note": "The speaker says 'tuhadi koi 1000 strip de naal 150 de kareeb strip chaka ti' (along with some 1000 strips of yours, he made us take around 150 strips). The relationship between the 1000 strips and the 150 strips is not entirely clear from the phrasing."
+  }
+ ]
+}

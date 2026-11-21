@@ -1,0 +1,96 @@
+{
+ "file": "CALL_REC_8662xxxx_20261007.m4a",
+ "model": "google/gemini-2.5-pro",
+ "languages": [
+  "Telugu",
+  "English"
+ ],
+ "speakers": [
+  "Srinivas from Accounts, Matrix Medicos"
+ ],
+ "transcript_original": "[00:00] Hello, PFSizer claims deska? Nenu Srinivas. [00:06] Accounts, Matrix Medicos, Vijayawada nunchi maatladuthunnanu. Claim number CLM 260702627 gurinchi. [00:15] Panpro Prozil 40, 689 stripes, 68,004 rupayalu, July varaku... to July 29 na submit chesamu. [00:24] Ippativaraku credit note raledu. Mee policy lo 30 rojulan undi kada? Maa MD gaari idi clear ayye varaku mee current invoices payment hold cheyamannaru. [00:33] Inko vishayam. Mee Hyderabad C&F aayan chepparu, credit note raakapothe claim malli pampandi, okasari modatiki miss avuthundi ani. [00:40] Chaala parties alage chestunnaru. Memu kuda resend cheyala? Alage invoice copy leni claims ki Area Manager gaaru phone lo approved annaru. [00:47] Mail pamputunnaru. Dayachesi check chesi call back cheyandi.",
+ "translation_english": "[00:00] Hello, is this the PFSizer claims desk? This is Srinivas. [00:06] I'm calling from Accounts, Matrix Medicos, Vijayawada. It's regarding claim number CLM 260702627. [00:15] Panpro Prozil 40, 689 stripes, for 68,004 rupees, was submitted on July 29th. [00:24] We haven't received the credit note yet. Your policy says 30 days, right? Our MD has asked to hold the payment for your current invoices until this is cleared. [00:33] Another thing. Your Hyderabad C&F person said that if the credit note doesn't come, to send the claim again, as it sometimes gets missed the first time. [00:40] Many parties are doing the same. Should we also resend? Also, for claims without an invoice copy, the Area Manager has given approval over the phone. [00:47] They are sending a mail. Please check and call back.",
+ "factual_claims": [
+  {
+   "claim": "The caller identifies himself as Srinivas from Accounts at Matrix Medicos in Vijayawada.",
+   "timestamp": "00:05",
+   "exact_numbers_codes_names_spoken": [
+    "Srinivas",
+    "Accounts",
+    "Matrix Medicos",
+    "Vijayawada"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The call is regarding claim number CLM 260702627.",
+   "timestamp": "00:09",
+   "exact_numbers_codes_names_spoken": [
+    "CLM 260702627"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The claim is for 689 stripes of Panpro Prozil 40, with a value of 68,004 rupees.",
+   "timestamp": "00:15",
+   "exact_numbers_codes_names_spoken": [
+    "Panpro Prozil 40",
+    "689",
+    "68,004"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The claim was submitted on July 29th.",
+   "timestamp": "00:22",
+   "exact_numbers_codes_names_spoken": [
+    "July 29"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "A credit note for the claim has not yet been received.",
+   "timestamp": "00:24",
+   "exact_numbers_codes_names_spoken": [],
+   "confidence": "high"
+  },
+  {
+   "claim": "The company's policy for claim processing is 30 days.",
+   "timestamp": "00:26",
+   "exact_numbers_codes_names_spoken": [
+    "30"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The MD of Matrix Medicos has instructed to hold payments for current invoices until the claim is cleared.",
+   "timestamp": "00:28",
+   "exact_numbers_codes_names_spoken": [
+    "MD"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The Hyderabad C&F advised resubmitting the claim if the credit note is not received, as it might get missed.",
+   "timestamp": "00:34",
+   "exact_numbers_codes_names_spoken": [
+    "Hyderabad C&F"
+   ],
+   "confidence": "high"
+  },
+  {
+   "claim": "The Area Manager has given verbal approval over the phone for claims submitted without an invoice copy.",
+   "timestamp": "00:45",
+   "exact_numbers_codes_names_spoken": [
+    "Area Manager"
+   ],
+   "confidence": "high"
+  }
+ ],
+ "unclear_passages": [
+  {
+   "timestamp": "00:02",
+   "note": "The speaker says 'PFSizer', which is likely a mispronunciation of 'Pfizer'. It has been transcribed as spoken."
+  }
+ ]
+}
