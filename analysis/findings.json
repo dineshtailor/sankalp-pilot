@@ -17,8 +17,12 @@
     "inr": 872374
    }
   },
-  "inr_per_year": 2230815,
-  "basis": "credited+pending claims in L12M failing a hard rule"
+  "inr_per_year": 2107603,
+  "unique_claims": 109,
+  "overlap_removed_inr": 123212,
+  "repeat_claims_credited": 46,
+  "repeat_claims_pending": 12,
+  "basis": "credited+pending claims in L12M failing a hard rule; each claim counted once"
  },
  "P1_no_invoice_ref_l12m": {
   "claims": 410,

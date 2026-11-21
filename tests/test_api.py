@@ -54,6 +54,27 @@ def test_model_note_with_invented_number_is_dropped(monkeypatch):
     assert r["meter"]["model_calls"] == 1
 
 
+class CitingLLM:
+    """Writes an honest note that cites a clause number present in the evidence."""
+
+    def invoke(self, messages):
+        return AIMessage(content="Rejected as a repeat claim under §5.6.", usage_metadata={"input_tokens": 10, "output_tokens": 5, "total_tokens": 15})
+
+
+def test_model_note_citing_a_real_clause_is_kept(monkeypatch):
+    monkeypatch.setattr(g, "has_key", lambda: True)
+    monkeypatch.setattr(g.X, "has_key", lambda: False)
+    monkeypatch.setattr(g, "get_llm", lambda: CitingLLM())
+    r = client.post("/api/run", json={"mode": "claim", "payload": {"claim_no": "CLM-2605-04488"}}).json()
+    assert r["explain_method"] == "model" and "§5.6" in r["explanation"]
+
+
+def test_number_guard_compares_values_not_formatting():
+    evidence = g._numbers("value 18130.0, INR 18,130.00")
+    assert g._numbers("INR 18,130") <= evidence
+    assert not g._numbers("INR 18,131") <= evidence
+
+
 def test_reports_run():
     for mode in ("circular", "rebalance"):
         r = client.post("/api/run", json={"mode": mode, "payload": {}}).json()

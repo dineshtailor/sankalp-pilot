@@ -1,4 +1,4 @@
-"""Sankalp Channel Guard: one LangGraph workflow serving three users.
+r"""Sankalp Channel Guard: one LangGraph workflow serving three users.
 
   intake --(claim)--> load_claim ----------------------\
          --(manual)----------------------------------- resolve --> [window | quantity | duplicate | invoice] --> decide --> explain --> END
@@ -15,6 +15,7 @@ from __future__ import annotations
 import json
 import operator
 import re
+from decimal import Decimal
 from typing import Annotated, Any, TypedDict
 
 import pandas as pd
@@ -288,7 +289,8 @@ NUM = re.compile(r"\d[\d,]*\.?\d*")
 
 
 def _numbers(s: str) -> set:
-    return {n.replace(",", "").rstrip(".") for n in NUM.findall(s or "")}
+    """Numbers as values, so 18,130 and 18130.00 count as the same figure."""
+    return {format(Decimal(n.replace(",", "").rstrip(".")).normalize(), "f") for n in NUM.findall(s or "")}
 
 
 def _guarded_llm(system: str, content: str, node: str) -> tuple[str | None, str, list]:
@@ -338,7 +340,7 @@ def explain(state: State) -> dict:
     base = _template(state)
     if state.get("results") or state.get("status"):
         payload = json.dumps({"decision": state.get("decision"), "results": [{"line": r["line"], "decision": r["decision"], "value_inr": r["value_inr"],
-                              "checks": r["checks"]} for r in state.get("results", [])], "status": state.get("status")}, default=str)
+                              "checks": r["checks"]} for r in state.get("results", [])], "status": state.get("status")}, default=str, ensure_ascii=False)  # keep § literal so the number guard reads clauses correctly
         text, method, usage = _guarded_llm(prompts.EXPLAIN_SYSTEM, payload, "explain")
         return {"explanation": text or base, "explain_method": method, "usage": usage}
     return {"explanation": base, "explain_method": "template"}
@@ -351,7 +353,7 @@ def explain_report(state: State) -> dict:
         summ["top_moves"] = [{k: m[k] for k in ("sku_code", "to_cnf", "packs", "value_inr", "from_cnfs")} for m in rep.get("moves", [])[:5]]
     if rep.get("kind") == "circular":
         summ["drop"] = [r["sku_code"] for r in rep.get("rows", []) if r.get("decision") == "DROP"]
-    content = json.dumps(summ, default=str)
+    content = json.dumps(summ, default=str, ensure_ascii=False)
     text, method, usage = _guarded_llm(prompts.REPORT_SYSTEM, content, "explain_report")
     if not text:
         k = rep.get("kind")

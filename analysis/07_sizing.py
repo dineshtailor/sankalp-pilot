@@ -30,15 +30,23 @@ dup = live[live.dup_same_qty]
 over = live[live.cumulative_over_invoiced]
 # excess packs over invoiced only
 cum = c[c.status != "Rejected"].sort_values("claim_date").groupby(["stockist_code", "batch_no"]).qty_claimed.cumsum()
-over_excess = (np.minimum(over.qty_claimed, cum.reindex(over.index) - over.sold_packs) * over.sku_code.map(sk.pts_inr)).sum()
+over_by_claim = np.minimum(over.qty_claimed, cum.reindex(over.index) - over.sold_packs) * over.sku_code.map(sk.pts_inr)
+over_excess = over_by_claim.sum()
 late = live[live.window_expired_too_late]
+# one claim can fail several rules: count each claim's money once
+full_reject = live[live.dup_same_qty | live.window_expired_too_late]
+over_only = over_by_claim[~over_by_claim.index.isin(full_reject.index)]
 p1 = {
     "duplicate_same_stockist_batch_qty": {"claims": len(dup), "inr": round(dup.value.sum())},
     "qty_above_invoiced_excess_only": {"claims": len(over), "inr": round(over_excess)},
     "expired_claim_after_90_days": {"claims": len(late), "inr": round(late.value.sum())},
 }
-p1_total = sum(v["inr"] for v in p1.values())
-F["P1_claim_leakage"] = {"items": p1, "inr_per_year": round(p1_total), "basis": "credited+pending claims in L12M failing a hard rule"}
+p1_total = full_reject.value.sum() + over_only.sum()
+flagged = live.index.isin(full_reject.index) | live.index.isin(over_only.index)
+F["P1_claim_leakage"] = {"items": p1, "inr_per_year": round(p1_total), "unique_claims": int(flagged.sum()),
+                         "overlap_removed_inr": round(sum(v["inr"] for v in p1.values()) - p1_total),
+                         "repeat_claims_credited": int((dup.status == "Credited").sum()), "repeat_claims_pending": int((dup.status == "Pending").sum()),
+                         "basis": "credited+pending claims in L12M failing a hard rule; each claim counted once"}
 noinv = live[live.no_invoice_ref & live.claim_type.isin(["Near expiry", "Expired"])]
 F["P1_no_invoice_ref_l12m"] = {"claims": len(noinv), "inr": round(noinv.value.sum()),
                               "matched_to_sales_by_stockist_batch": int((noinv.sold_packs > 0).sum())}

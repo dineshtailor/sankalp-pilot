@@ -20,7 +20,7 @@ def main() -> int:
         hit = res["decision"] == r["expected_decision"] and (not r["expected_reason_contains"] or r["expected_reason_contains"] in text)
         ok += hit
         out.append({"id": r["id"], "input": r["input"], "expected": r["expected_decision"], "got": res["decision"], "pass": hit,
-                    "model_calls": res["meter"]["model_calls"], "seconds": res["meter"]["seconds"], "explanation": (res["explanation"] or "")[:200]})
+                    "email_read_by": res.get("extract_method") or "", "note_by": res.get("explain_method") or "", "model_calls": res["meter"]["model_calls"], "seconds": res["meter"]["seconds"], "explanation": (res["explanation"] or "")[:200]})
         print(f"{r['id']} {r['input']:15s} expected {r['expected_decision']:13s} got {str(res['decision']):13s} {'PASS' if hit else 'FAIL'}")
     with open(HERE / "check_results.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(out[0].keys()))

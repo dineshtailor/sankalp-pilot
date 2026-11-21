@@ -17,11 +17,11 @@ Fictional teaching case (FDE Academy). Pfizer Limited is not involved. Keep this
 
 | Check | Result |
 |---|---|
-| Unit and API tests | `pytest -q`: 53 passed |
-| Hand-agreed check set (20 real awkward records) | `python -m checks.run_checks`: 20 / 20 in code-only mode |
-| Claims that fail a hard rule, last 12 months | ₹22.3 lakh (duplicates ₹12.9 lakh, >90 days after expiry ₹8.7 lakh, over-quantity ₹0.7 lakh) |
+| Unit and API tests | `pytest -q`: 55 passed |
+| Hand-agreed check set (20 real awkward records) | `python -m checks.run_checks`: 20 / 20 with `openai/gpt-4o-mini` and 20 / 20 code-only |
+| Claims that fail a hard rule, last 12 months | ₹21.1 lakh across 109 claims, each counted once (duplicates ₹12.9 lakh, >90 days after expiry ₹8.7 lakh, over-quantity ₹0.7 lakh, less ₹1.2 lakh overlap) |
 
-Discovery and sizing scripts are in `analysis/` (run in order `00` to `13`). Their outputs are in `analysis/findings.json`.
+Discovery and sizing scripts are in `analysis/` (run in order `00` to `14`). Their outputs are in `analysis/findings.json`.
 
 ## Layout
 ```
