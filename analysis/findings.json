@@ -1,0 +1,121 @@
+{
+ "primary_gross_l12m_cr": 201.42,
+ "expiry_claims_logged_l12m_cr": 5.462,
+ "claims_credited_l12m_cr": 4.476,
+ "P1_claim_leakage": {
+  "items": {
+   "duplicate_same_stockist_batch_qty": {
+    "claims": 58,
+    "inr": 1287452
+   },
+   "qty_above_invoiced_excess_only": {
+    "claims": 21,
+    "inr": 70989
+   },
+   "expired_claim_after_90_days": {
+    "claims": 41,
+    "inr": 872374
+   }
+  },
+  "inr_per_year": 2230815,
+  "basis": "credited+pending claims in L12M failing a hard rule"
+ },
+ "P1_no_invoice_ref_l12m": {
+  "claims": 410,
+  "inr": 9707916,
+  "matched_to_sales_by_stockist_batch": 410
+ },
+ "P1_near_expiry_filed_too_early_l12m": {
+  "claims": 72,
+  "inr": 1382729
+ },
+ "P1_batch_archived_needs_erp_check_l12m": {
+  "claims": 0,
+  "inr": 0
+ },
+ "P2_scheme_driven_expiry": {
+  "expiry_claims_on_scheme_bought_packs_l12m_inr": 26084215,
+  "baseline_rate_non_scheme_pct": 0.98,
+  "scheme_purchases_l12m_inr": 463581271,
+  "excess_claims_over_baseline_inr": 21541118,
+  "foc_issued_l12m_inr": 66332963,
+  "foc_over_3pct_cap_l12m_inr": 6826435,
+  "screen_capture_assumption": 0.5,
+  "inr_per_year": 17596994,
+  "method": "50% of excess scheme-lot claims avoided by withholding schemes from stockist-SKUs already above 2.5 months cover (\u00a74.5), plus FOC above the 3% cap (\u00a74.4)"
+ },
+ "P3_allocation": {
+  "short_supplied_l12m_inr_actual": 475176494,
+  "short_if_same_national_supply_allocated_to_demand_inr": 475176494,
+  "attributable_to_allocation_inr": 0,
+  "short_by_cnf_l12m_inr": {
+   "CF-E01": 50572574,
+   "CF-N01": 97576082,
+   "CF-N02": 123616056,
+   "CF-S01": 76533776,
+   "CF-S02": 64304950,
+   "CF-W01": 62573057
+  },
+  "note": "ordered_qty includes re-orders after cancellations, so short value overstates lost sales; allocation share is the robust part"
+ },
+ "P3_lucknow_lines_not_supplied_l12m_inr": 95416512,
+ "P3_stock_above_2_months_cover_30sep26_inr": {
+  "CF-E01": 24085235,
+  "CF-N01": 2620596,
+  "CF-N02": 0,
+  "CF-S01": 8344656,
+  "CF-S02": 7353955,
+  "CF-W01": 7202702
+ },
+ "P3_inr_per_year_revenue_protected": 0,
+ "P4_low_rsl_dispatch_l12m_inr_by_cnf": {
+  "CF-E01": 12457238,
+  "CF-N01": 10814394,
+  "CF-N02": 6982703,
+  "CF-S01": 13303836,
+  "CF-S02": 8355126,
+  "CF-W01": 10711329
+ },
+ "P4_note": "Kolkata FEFO-breach proxy 64-80% Mar-Sep 2026 vs 10-55% elsewhere (06_fefo_risk)",
+ "P5_tat": {
+  "mean_days": 44.7,
+  "share_over_30d_pct": 74.9,
+  "pending_claims": 360,
+  "pending_inr": 9594792
+ },
+ "P6_breakage_l12m_inr": 352675,
+ "P6_breakage_pct_primary": 0.018,
+ "P3_rebalance": {
+  "months_covered": 6,
+  "movable_inr_in_window": 32674136,
+  "inr_per_year_revenue_protected": 65348273,
+  "by_cnf_inr_window": {
+   "CF-N01": 6676201,
+   "CF-N02": 25997935
+  },
+  "method": "Per SKU-month (Apr-Sep 2026): min(50% of North unsupplied packs, stock above 2 months cover at other CFAs at prior month-end) x PTS; annualised. Revenue at PTS, not margin.",
+  "caveat": "Return-to-CDC then re-dispatch takes 10-14 days (Sch.2 2.5); the gain needs Head SC to act monthly."
+ },
+ "P2_backtest": {
+  "as_of": "2025-08-31",
+  "pairs": 1266,
+  "withhold_pairs": 13,
+  "share_withheld_pct": 1.0,
+  "claims_next12m_withhold_inr": 869958,
+  "claims_next12m_all_inr": 47548983,
+  "share_of_claims_in_withhold_pct": 1.8,
+  "foc_saved_sep25_inr": 208716
+ },
+ "module_C_circular_check": {
+  "skus": 15,
+  "drop": 8,
+  "saving_if_dropped_inr_per_year": 47674820,
+  "foc_share_of_primary_l12m_pct": 3.29,
+  "cap_pct": 3.0
+ },
+ "module_B_rebalance_now": {
+  "snapshot": "2026-09-30",
+  "moves": 26,
+  "value_inr": 7949935.9
+ }
+}

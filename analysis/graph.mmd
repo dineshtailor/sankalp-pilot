@@ -1,0 +1,60 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	intake(intake)
+	load_claim(load_claim)
+	manual_line(manual_line)
+	read_email(read_email)
+	build_lines(build_lines)
+	claim_status(claim_status)
+	resolve(resolve)
+	decide(decide)
+	batch_month(batch_month)
+	circular_check(circular_check)
+	rebalance(rebalance)
+	explain(explain)
+	explain_report(explain_report)
+	check_window(check_window)
+	check_quantity(check_quantity)
+	check_duplicate(check_duplicate)
+	check_invoice(check_invoice)
+	finalise(finalise)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> intake;
+	batch_month --> explain_report;
+	build_lines --> resolve;
+	check_duplicate --> decide;
+	check_invoice --> decide;
+	check_quantity --> decide;
+	check_window --> decide;
+	circular_check --> explain_report;
+	claim_status --> explain;
+	decide --> explain;
+	explain --> finalise;
+	explain_report --> finalise;
+	intake -.-> batch_month;
+	intake -.-> circular_check;
+	intake -.-> explain;
+	intake -.-> load_claim;
+	intake -.-> manual_line;
+	intake -.-> read_email;
+	intake -.-> rebalance;
+	load_claim -.-> explain;
+	load_claim -.-> resolve;
+	manual_line --> resolve;
+	read_email -.-> build_lines;
+	read_email -.-> claim_status;
+	read_email -.-> explain;
+	rebalance --> explain_report;
+	resolve --> check_duplicate;
+	resolve --> check_invoice;
+	resolve --> check_quantity;
+	resolve --> check_window;
+	finalise --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc

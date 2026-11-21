@@ -1,0 +1,14 @@
+# Decision log
+
+| # | Date | Decision | Why (evidence) | Alternatives rejected |
+|---|---|---|---|---|
+| D1 | 19-Nov-26 | Do **not** build the AI demand-forecasting tool the CFO asked for | Partial-fill rate holds steady at 92-93%; the fill-rate fall comes from lines not supplied at all. Lucknow at 0.24 months of cover while Kolkata sits at 3.8-6.5 (cnf_stock_snapshot). 95% of expiry claims are on the 15 scheme SKUs; scheme lots come back at 5-9% vs 1-8% without scheme. A forecast cannot fix "where" stock goes or a sales push | Vendor demand-sensing pilot (₹ unknown, 12 months) |
+| D2 | 19-Nov-26 | Primary user = claims executive in Commercial Finance | Money that leaves the company today: duplicates, late and over-quantity claims credited (₹22.3 lakh in the last 12 months). Neha: "Something that checks a claim before it reaches my team" | Chatbot over the data (no user, no decision) |
+| D3 | 19-Nov-26 | Rules in Python, model only reads emails and writes notes | Brief: "if a formula can do it, the model should not". A credit note is a GST document | Letting the model judge claims |
+| D4 | 19-Nov-26 | Model note is discarded if it contains any number not in the evidence | Accuracy bar rule 2 (nothing invented) | Trusting the prompt alone |
+| D5 | 19-Nov-26 | Regex fallback reader, so the app works with no key or when the model fails | Deployment risk; the panel demo must not depend on a third-party API | Hard failure without a key |
+| D6 | 19-Nov-26 | Stockist-level stock-norm screen (§4.5) replaced by an SKU-level circular check | Backtest of the per-stockist estimate flagged 1% of pairs and caught 1.8% of later claims. Stuffing is uniform across stockists and differs by SKU | Shipping a screen that does not discriminate |
+| D7 | 19-Nov-26 | No C&F expiry radar | At 30-Sep-26 no C&F batch is projected to hit the 60-day block unsold. The expiry happens at stockists, after the scheme push | Building Kavita's "tell me where stock will expire" literally |
+| D8 | 19-Nov-26 | `row` = spreadsheet row (header = 1) | An auditor opens the CSV in Excel and goes straight to the row | Zero-based index |
+| D9 | 19-Nov-26 | Parallel check nodes (window, quantity, duplicate, invoice) | Independent checks, one state key each (brief's design table); easy to add a check | One monolithic node |
+| D10 | 19-Nov-26 | No interrupt()/checkpointer | The person acts outside the tool (SAP CN). The pilot is read-only, so there is nothing to resume | Human-in-loop pause inside the graph |

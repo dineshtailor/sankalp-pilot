@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sankalp Channel Guard</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <div class="brand"><span class="logo">S</span><div><b>Sankalp Channel Guard</b><small>Pilot · GM trade channel · data to 30-Sep-2026</small></div></div>
+  <span id="health" class="pill">checking…</span>
+</header>
+<nav id="tabs">
+  <button data-tab="claims" class="on">Claims desk<small>Commercial Finance</small></button>
+  <button data-tab="month">Month audit<small>Controller</small></button>
+  <button data-tab="circular">Scheme circular check<small>NSM / RSMs</small></button>
+  <button data-tab="rebalance">Stock rebalance<small>Supply Chain</small></button>
+</nav>
+<main>
+  <section id="tab-claims" class="tab">
+    <p class="lead">Check a stockist claim before a credit note is raised. Rules run in code against the sales and claims extracts; you decide.</p>
+    <div class="inputs">
+      <div class="card">
+        <label>From the claims mailbox</label>
+        <select id="email-pick"><option value="">Loading emails…</option></select>
+        <pre id="email-body" class="mail"></pre>
+        <button class="go" data-run="email">Check this email</button>
+      </div>
+      <div class="card">
+        <label>From the claims register</label>
+        <input id="claim-no" placeholder="Claim number, e.g. CLM-2605-04488" autocomplete="off">
+        <button class="go" data-run="claim">Check this claim</button>
+        <details><summary>Or paste a new email</summary>
+          <input id="p-stk" placeholder="Stockist code (mailbox rule), e.g. STK0117">
+          <input id="p-date" placeholder="Received date, e.g. 16-10-2026">
+          <textarea id="p-body" rows="5" placeholder="Paste the email body"></textarea>
+          <button class="go" data-run="paste">Check pasted email</button>
+        </details>
+      </div>
+    </div>
+  </section>
+  <section id="tab-month" class="tab" hidden>
+    <p class="lead">Batch mode: run every claim logged in a month through the same checks. What would the tool have caught?</p>
+    <div class="card row"><input id="month" value="2026-09" placeholder="YYYY-MM"><button class="go" data-run="month">Run month</button></div>
+  </section>
+  <section id="tab-circular" class="tab" hidden>
+    <p class="lead">Before signing the next quarter-end circular: which SKUs come back as expiry claims, and which stockists to check first (CO-POL-014 §4.3–4.5).</p>
+    <div class="card row"><input id="skus" placeholder="SKUs on the draft circular (blank = current circular list)"><button class="go" data-run="circular">Check circular</button></div>
+  </section>
+  <section id="tab-rebalance" class="tab" hidden>
+    <p class="lead">Month-end C&amp;F cover: where stock sits above two months while another C&amp;F is short, and where FEFO looks broken.</p>
+    <div class="card row"><span>Latest stock snapshot</span><button class="go" data-run="rebalance">Build rebalance plan</button></div>
+  </section>
+
+  <p id="state" class="state" hidden></p>
+  <section id="out" hidden>
+    <div id="verdict" class="verdict"></div>
+    <div id="body"></div>
+    <div class="foot"><span id="meter"></span><button id="export" class="ghost">Export audit trail (CSV)</button></div>
+  </section>
+</main>
+<footer>Fictional teaching case (FDE Academy). Read-only pilot on static extracts: it recommends; named owners decide. Every figure shows its file and row.</footer>
+<script src="/app.js"></script>
+</body>
+</html>
