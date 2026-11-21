@@ -8,3 +8,5 @@ analysis
 checks
 docs
 tests
+.env.local
+.vercel
