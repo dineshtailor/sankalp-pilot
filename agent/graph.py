@@ -351,7 +351,10 @@ def explain_report(state: State) -> dict:
     summ = {k: rep.get(k) for k in ("summary", "total_value_inr", "snapshot_date", "month", "cnf_cover", "fefo") if rep.get(k) is not None}
     if rep.get("kind") == "rebalance":
         summ["top_moves"] = [{k: m[k] for k in ("sku_code", "to_cnf", "packs", "value_inr", "from_cnfs")} for m in rep.get("moves", [])[:5]]
+        summ["value_of_all_proposed_moves_inr"] = summ.pop("total_value_inr", None)  # not total inventory
+        summ["stranded_lots"] = rep.get("stranded", {}).get("summary")
     if rep.get("kind") == "circular":
+        summ["free_goods_below_minimum_order"] = {k: rep.get("moq", {}).get(k) for k in ("pairs_below", "pairs", "foc_inr")}
         summ["drop"] = [r["sku_code"] for r in rep.get("rows", []) if r.get("decision") == "DROP"]
     content = json.dumps(summ, default=str, ensure_ascii=False)
     text, method, usage = _guarded_llm(prompts.REPORT_SYSTEM, content, "explain_report")
@@ -368,7 +371,8 @@ def explain_report(state: State) -> dict:
                     f"against the {s.get('cap_pct')}% cap. The NSM decides; the CFO approves any cap exception.")
         elif k == "rebalance":
             text = (f"At {rep.get('snapshot_date')}, {len(rep.get('moves', []))} SKU moves worth INR {rep.get('total_value_inr', 0):,.0f} would bring short C&Fs to one month "
-                    f"of cover from C&Fs holding more than two months. Each move is a return-to-CDC that the Head of Supply Chain approves.")
+                    f"of cover from C&Fs holding more than two months. Each move is a return-to-CDC that the Head of Supply Chain approves. "
+                    f"{rep.get('stranded', {}).get('summary', {}).get('lots', 0)} older lots worth INR {rep.get('stranded', {}).get('summary', {}).get('value_inr', 0):,.0f} are idle while newer batches ship: pick them first.")
         else:
             text = "; ".join(state.get("errors", [])) or "Report ready."
     return {"explanation": text, "explain_method": method, "usage": usage}

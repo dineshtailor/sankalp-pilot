@@ -156,6 +156,21 @@ def scheme_allowed(months_of_cover: float | None) -> dict:
     return _r("stock_norm", PASS, f"Estimated {months_of_cover:.1f} months of stock <= {C.SCHEME_STOCK_NORM_MONTHS}", "stock_norm")
 
 
+def scheme_moq_met(qty_in_month: float, avg_prev_3_months: float) -> dict:
+    """CO-POL-014 Annexure B: minimum scheme order = 1.5 x average monthly purchase of the SKU over the previous 3 months."""
+    if avg_prev_3_months <= 0:
+        return _r("scheme_moq", PERSON, "No purchase history in the previous three months", "scheme_moq")
+    moq = C.SCHEME_MOQ_MULTIPLE * avg_prev_3_months
+    if qty_in_month < moq:
+        return _r("scheme_moq", FAIL, f"Bought {qty_in_month:g} packs; minimum for the scheme is {moq:g}", "scheme_moq")
+    return _r("scheme_moq", PASS, f"Bought {qty_in_month:g} packs; minimum for the scheme is {moq:g}", "scheme_moq")
+
+
+def is_stranded(days_since_last_dispatch: float, newer_batch_shipped: bool) -> bool:
+    """FEFO signal (SC-AGR-CF-003 cl. 6.3): an older lot sat idle while a newer batch of the same SKU shipped."""
+    return days_since_last_dispatch >= C.STRANDED_IDLE_DAYS and bool(newer_batch_shipped)
+
+
 def scheme_cap_breach(free_value_pts: float, primary_value: float) -> dict:
     """CO-POL-014 §4.4."""
     if primary_value <= 0:

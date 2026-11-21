@@ -121,5 +121,45 @@
   "snapshot": "2026-09-30",
   "moves": 26,
   "value_inr": 7949935.9
+ },
+ "voice_followups": {
+  "stranded_by_cnf": {
+   "CF-E01": {
+    "lots": 7,
+    "inr": 1181031
+   }
+  },
+  "kolkata_stranded_by_ta": {
+   "Anti-infectives": 45013,
+   "Cardio-metabolic": 556044,
+   "Central nervous system": 30960,
+   "Pain and inflammation": 526480,
+   "Respiratory": 22534
+  },
+  "kolkata_block_by_feb27_inr": 0,
+  "kolkata_block_by_jun27_inr": 549015,
+  "moq_l12m": {
+   "largest single scheme line": {
+    "pairs_below": 4039,
+    "of": 5231,
+    "foc_inr": 34095536
+   },
+   "all scheme lines in the month": {
+    "pairs_below": 4015,
+    "of": 5231,
+    "foc_inr": 33440884
+   },
+   "all purchases 22nd to month-end": {
+    "pairs_below": 3512,
+    "of": 5231,
+    "foc_inr": 25973376
+   },
+   "all purchases in the month (most lenient)": {
+    "pairs_below": 2456,
+    "of": 5231,
+    "foc_inr": 10475853
+   }
+  },
+  "foc_l12m_inr": 66332963
  }
 }

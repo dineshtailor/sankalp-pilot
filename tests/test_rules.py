@@ -106,6 +106,18 @@ def test_scheme_cap(free, expected):
     assert R.scheme_cap_breach(free, 100)["status"] == expected
 
 
+# Annexure B: minimum scheme order = 1.5 x average monthly purchase over the previous three months
+@pytest.mark.parametrize("qty,avg3,expected", [(149, 100, R.FAIL), (150, 100, R.PASS), (151, 100, R.PASS), (10, 0, R.PERSON)])
+def test_scheme_minimum_order(qty, avg3, expected):
+    assert R.scheme_moq_met(qty, avg3)["status"] == expected
+
+
+# A lot is idle only if it has not shipped for the full window while a newer batch of the SKU did
+@pytest.mark.parametrize("days,newer,expected", [(89, True, False), (90, True, True), (91, True, True), (120, False, False)])
+def test_stranded_lot(days, newer, expected):
+    assert R.is_stranded(days, newer) is expected
+
+
 def test_routing():
     p, f, h = {"status": R.PASS}, {"status": R.FAIL}, {"status": R.PERSON}
     assert R.decide([p, p]) == "APPROVE"

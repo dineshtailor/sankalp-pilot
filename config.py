@@ -43,6 +43,7 @@ CFA_FEE_PER_CLAIM_LINE_INR = 45
 # Set from the backtest in analysis/11_scheme_sku_quarter.py; the NSM decides (CO-POL-014 §4.3).
 SCHEME_DROP_CLAIMBACK_PCT = 5.0
 SCHEME_DROP_MULTIPLE = 1.5
+STRANDED_IDLE_DAYS = 90               # lot counted as stranded after 90 days without dispatch while a newer batch shipped
 MAX_TOOL_TRIPS = 4                    # cap on any model tool loop
 DATA_CUTOFF = "2026-09-30"            # extracts run 01-Apr-2024 to 30-Sep-2026 (CE-BRF-2026-07 §5)
 
@@ -58,6 +59,7 @@ CLAUSES = {
     "rsl": "CO-POL-014 §7.1 RSL >= 60% of shelf life at invoice",
     "scheme_cap": "CO-POL-014 §4.4 free goods <= 3% of quarter primary",
     "stock_norm": "CO-POL-014 §4.5 no scheme above 2.5 months of stock",
+    "scheme_moq": "CO-POL-014 Annexure B minimum order 1.5x average monthly purchase, previous 3 months",
     "fefo": "SC-AGR-CF-003 cl. 6.3 and Sch.2 2.3(2) FEFO picking",
     "return_cdc": "SC-AGR-CF-003 Sch.2 2.5 return to CDC (Head SC approval)",
     "gst_cn": "CGST Act 2017 s.34(2), amended by Finance Act 2022 (w.e.f. 01-Oct-2022): CN by 30 Nov after the FY of supply",

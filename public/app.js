@@ -95,12 +95,17 @@ function monthView(r) {
 }
 function circularView(r) {
   const s = r.summary || {};
-  return kpis([[s.drop ?? 0, `of ${s.skus ?? 0} SKUs: recommend drop`], [inr(s.saving_if_dropped_inr_per_year), "FOC + excess returns a year"], [(s.foc_share_of_primary_l12m_pct ?? "–") + "%", `free goods / primary, cap ${s.cap_pct}%`]]) +
+  return kpis([[s.drop ?? 0, `of ${s.skus ?? 0} SKUs: recommend drop`], [inr(s.saving_if_dropped_inr_per_year), "FOC + excess returns a year"], [(s.foc_share_of_primary_l12m_pct ?? "–") + "%", `free goods / primary, cap ${s.cap_pct}%`], [inr((r.moq || {}).foc_inr), `free goods below the 1.5x minimum order (${(r.moq || {}).pairs_below ?? 0} of ${(r.moq || {}).pairs ?? 0} stockist-SKU-months), last 12 m`]]) +
     `<h3>SKUs on the circular</h3><div class="scroll"><table><tr><th>SKU</th><th>Product</th><th>Scheme lots claimed back</th><th>Non-scheme</th><th>FOC cost, last 12 m</th><th>Excess returns, last 12 m</th><th>Recommendation</th></tr>${r.rows.map((x) =>
       `<tr><td>${esc(x.sku_code)}</td><td>${esc(x.product || "")}</td><td class="num">${x.scheme_claimback_pct ?? "–"}%</td><td class="num">${x.non_scheme_claimback_pct ?? "–"}%</td><td class="num">${inr(x.foc_cost_l12m_inr)}</td><td class="num">${inr(x.excess_returns_l12m_inr)}</td><td><span class="st ${x.decision === "DROP" ? "FAIL" : x.decision === "KEEP" ? "PASS" : x.decision === "REVIEW SUPPLY" ? "PERSON" : "INFO"}">${esc(x.decision)}</span> ${esc(x.reason || "")}</td></tr>`).join("")}</table></div>
     <p class="src">${esc(r.clause)}. Method: expiry claims attributed pro rata to the invoice lines of the same stockist and batch; only batches expired by 30-09-2026. Sources: primary_sales.csv, expiry_claims.csv, sku_master.csv.</p>
     <h3>Stockist watchlist: RSM to confirm closing stock before accepting a scheme order (§4.5)</h3><div class="scroll"><table><tr><th>Stockist</th><th>C&amp;F</th><th>SKU</th><th>Scheme packs bought</th><th>Claimed back</th><th>Rows</th></tr>${(r.watchlist || []).map((w) =>
       `<tr><td>${esc(w.stockist_code)} ${esc(w.name)}</td><td>${esc(w.cnf_code)}</td><td>${esc(w.sku_code)}</td><td class="num">${w.scheme_packs}</td><td class="num">${w.claimback_pct}%</td><td class="src">primary_sales.csv ${esc(w.evidence_rows["primary_sales.csv"].join(", "))}</td></tr>`).join("")}</table></div>`;
+}
+function strandedTable(x) {
+  if (!x) return "";
+  const rows = x.rows.map((l) => `<tr><td>${esc(l.cnf_code)}</td><td>${esc(l.batch_no)}</td><td>${esc(l.sku_code)} ${esc(l.product)}</td><td>${esc(l.therapy_area)}</td><td class="num">${l.packs}</td><td class="num">${inr(l.value_inr)}</td><td>${esc(l.last_dispatch)}</td><td>${esc(l.blocked_from)}</td><td class="src">cnf_stock_snapshot.csv ${esc(l.evidence_rows["cnf_stock_snapshot.csv"].join(", "))}; primary_sales.csv ${esc(l.evidence_rows["primary_sales.csv"].join(", "))}</td></tr>`).join("");
+  return `<h3>Stranded lots to pick first: ${x.summary.lots} lots, ${inr(x.summary.value_inr)}</h3><div class="scroll"><table><tr><th>C&amp;F</th><th>Batch</th><th>Product</th><th>Therapy</th><th>Packs</th><th>Value at PTS</th><th>Last shipped</th><th>Blocked from</th><th>Rows</th></tr>${rows || "<tr><td colspan=9>None found</td></tr>"}</table></div><p class="src">${esc(x.method)} ${esc(x.clause)}.</p>`;
 }
 function rebalanceView(r) {
   const fefo = (r.fefo || []).map((f) => `<tr><td>${esc(f.cnf_code)}</td><td class="num">${f.fefo_breach_proxy_pct}%</td><td class="num">${f.low_rsl_packs_pct}%</td><td>${f.flag ? '<span class="st FAIL">INVESTIGATE</span>' : '<span class="st PASS">OK</span>'}</td></tr>`).join("");
@@ -109,6 +114,7 @@ function rebalanceView(r) {
   return kpis([[r.moves.length, "SKU moves proposed"], [inr(r.total_value_inr), "stock value to move"], [r.snapshot_date, "snapshot used"]]) +
     `<h3>Proposed moves (return to CDC, then re-dispatch)</h3><div class="scroll"><table><tr><th>SKU</th><th>Product</th><th>To</th><th>Cover now (months)</th><th>From (cover)</th><th>Packs</th><th>Value at PTS</th><th>Snapshot rows</th></tr>${r.moves.map((m) =>
       `<tr><td>${esc(m.sku_code)}</td><td>${esc(m.product)}</td><td>${esc(m.to_cnf)}</td><td class="num">${m.to_cover_months ?? 0}</td><td>${esc(m.from_cnfs)}</td><td class="num">${m.packs}</td><td class="num">${inr(m.value_inr)}</td><td class="src">cnf_stock_snapshot.csv ${esc(m.evidence_rows["cnf_stock_snapshot.csv"].join(", "))}</td></tr>`).join("")}</table></div>
+    ${strandedTable(r.stranded)}
     <h3>Months of cover by C&amp;F</h3><table><tr><th>C&amp;F</th><th>Cover</th><th>SKUs at zero</th></tr>${cov}</table>
     <h3>Allocation: share of orders vs share of supply</h3><table><tr><th>C&amp;F</th><th>Demand share FY25</th><th>Demand share last 6 m</th><th>Supply share last 6 m</th></tr>${al}</table>
     <h3>FEFO signal, last 3 months (SC-AGR-CF-003 cl. 6.3)</h3><table><tr><th>C&amp;F</th><th>Packs from a newer batch while older shipped</th><th>Packs below 60% shelf life</th><th></th></tr>${fefo}</table>

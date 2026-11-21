@@ -154,7 +154,7 @@ def circular_check(skus: list[str] | None = None) -> dict:
             "summary": {"skus": len(rows), "drop": len(drop),
                         "saving_if_dropped_inr_per_year": round(sum((r["foc_cost_l12m_inr"] or 0) + (r["excess_returns_l12m_inr"] or 0) for r in drop)),
                         "foc_share_of_primary_l12m_pct": round(foc / gross * 100, 2), "cap_pct": C.SCHEME_CAP_SHARE * 100},
-            "watchlist": stockist_watchlist()}
+            "moq": moq_breach(), "watchlist": stockist_watchlist()}
 
 
 @lru_cache(maxsize=1)
@@ -206,7 +206,61 @@ def rebalance(as_of: str | None = None) -> dict:
     return {"snapshot_date": str(snap_date.date()), "moves": sorted(moves, key=lambda x: -x["value_inr"]),
             "total_value_inr": round(sum(m["value_inr"] for m in moves), 2),
             "cnf_cover": by_cnf.reset_index().to_dict("records"), "fefo": fefo_signal(),
-            "allocation": allocation_shares(), "clause": C.CLAUSES["return_cdc"]}
+            "allocation": allocation_shares(), "stranded": stranded_lots(str(snap_date.date())), "clause": C.CLAUSES["return_cdc"]}
+
+
+@lru_cache(maxsize=4)
+def stranded_lots(as_of: str = C.DATA_CUTOFF) -> dict:
+    """Lots on hand with no dispatch for 90 days while a newer batch of the same SKU shipped from the same C&F."""
+    as_of_ts = pd.Timestamp(as_of)
+    st, s, b, sk = d.stock(), d.sales(), d.batches(), d.skus()
+    oh = st[(st.snapshot_date == as_of_ts) & (st.batch_no != "")].groupby(["cnf_code", "sku_code", "batch_no"]).agg(
+        qty=("qty_on_hand_packs", "sum"), rows=("src_row", list)).reset_index()
+    oh = oh[oh.qty > 0]
+    shipped = s[(s.batch_no != "") & (s.invoice_date <= as_of_ts)].assign(exp=lambda x: x.batch_no.map(b.expiry_date))
+    last = shipped.groupby(["cnf_code", "batch_no"]).agg(when=("invoice_date", "max"), row=("src_row", "last"))
+    recent = shipped[shipped.invoice_date > as_of_ts - pd.Timedelta(days=C.STRANDED_IDLE_DAYS)]
+    newest = recent.groupby(["cnf_code", "sku_code"]).exp.max()
+    out = []
+    for r in oh.itertuples():
+        exp = b.expiry_date.get(r.batch_no)
+        if (r.cnf_code, r.batch_no) in last.index:
+            ls = last.loc[(r.cnf_code, r.batch_no)]
+            when, sale_row = ls.when, int(ls.row)
+        else:
+            when, sale_row = None, None
+        idle = (as_of_ts - when).days if when is not None else 10 ** 6
+        newer = newest.get((r.cnf_code, r.sku_code), pd.NaT)
+        if pd.isna(exp) or not R.is_stranded(idle, pd.notna(newer) and newer > exp):
+            continue
+        block = exp - pd.Timedelta(days=C.MIN_DAYS_TO_EXPIRY_AT_DISPATCH)
+        out.append({"cnf_code": r.cnf_code, "sku_code": r.sku_code, "product": sk.loc[r.sku_code, "product_description"],
+                    "therapy_area": sk.loc[r.sku_code, "therapy_area"], "batch_no": r.batch_no, "packs": float(r.qty),
+                    "value_inr": round(r.qty * float(sk.loc[r.sku_code, "pts_inr"]), 2), "expiry_date": str(exp.date()),
+                    "blocked_from": str(block.date()), "last_dispatch": str(when.date()) if when is not None else "none in extract",
+                    "evidence_rows": {"cnf_stock_snapshot.csv": [int(x) for x in r.rows], "primary_sales.csv": [sale_row] if sale_row else []}})
+    out.sort(key=lambda x: x["blocked_from"])
+    return {"rows": out, "clause": C.CLAUSES["fefo"],
+            "summary": {"lots": len(out), "packs": sum(x["packs"] for x in out), "value_inr": round(sum(x["value_inr"] for x in out), 2)},
+            "method": f"On hand at {as_of}, no dispatch for {C.STRANDED_IDLE_DAYS}+ days, while a newer batch of the same SKU shipped from the same C&F."}
+
+
+@lru_cache(maxsize=1)
+def moq_breach() -> dict:
+    """Free goods in the last 12 months where the stockist's purchases, read generously (the whole month), missed the minimum."""
+    s = d.sales()
+    end = pd.Timestamp(C.DATA_CUTOFF)
+    monthly = s.assign(p=s.invoice_date.dt.to_period("M")).groupby(["stockist_code", "sku_code", "p"]).invoiced_qty.sum().to_dict()
+    sc = s[(s.scheme_code != "") & (s.invoice_date > end - pd.DateOffset(months=12))].assign(p=lambda x: x.invoice_date.dt.to_period("M"))
+    g = sc.groupby(["stockist_code", "sku_code", "p"]).agg(foc=("free_qty", "sum"), pts=("pts_inr", "first")).reset_index()
+    below, foc = 0, 0.0
+    for r in g.itertuples():
+        avg = sum(monthly.get((r.stockist_code, r.sku_code, r.p - i), 0) for i in (1, 2, 3)) / 3
+        if R.scheme_moq_met(monthly.get((r.stockist_code, r.sku_code, r.p), 0), avg)["status"] == R.FAIL:
+            below += 1
+            foc += r.foc * r.pts
+    return {"pairs_below": below, "pairs": len(g), "foc_inr": round(foc), "clause": C.CLAUSES["scheme_moq"],
+            "method": "Most lenient reading: all purchases of the SKU in the scheme month count towards the minimum."}
 
 
 @lru_cache(maxsize=1)

@@ -75,6 +75,19 @@ def test_number_guard_compares_values_not_formatting():
     assert not g._numbers("INR 18,131") <= evidence
 
 
+def test_stranded_lots_only_at_kolkata_and_cite_rows():
+    from agent import reports as rp
+    x = rp.stranded_lots()
+    assert x["summary"]["lots"] == 7 and {r["cnf_code"] for r in x["rows"]} == {"CF-E01"}
+    assert all(r["evidence_rows"]["cnf_stock_snapshot.csv"] for r in x["rows"])
+
+
+def test_minimum_order_breach_is_reported():
+    from agent import reports as rp
+    m = rp.moq_breach()
+    assert m["pairs_below"] == 2456 and m["foc_inr"] == 10475853
+
+
 def test_reports_run():
     for mode in ("circular", "rebalance"):
         r = client.post("/api/run", json={"mode": mode, "payload": {}}).json()
