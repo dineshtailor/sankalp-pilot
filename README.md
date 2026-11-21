@@ -13,12 +13,14 @@ the tool says **not found** or **needs a person**. It never guesses. The pilot i
 
 Fictional teaching case (FDE Academy). Pfizer Limited is not involved. Keep this repository private.
 
+**Live pilot:** https://sankalp-pilot-five.vercel.app
+
 ## Results on the data pack
 
 | Check | Result |
 |---|---|
 | Unit and API tests | `pytest -q`: 65 passed |
-| Hand-agreed check set (20 real awkward records) | `python -m checks.run_checks`: 20 / 20 with `openai/gpt-4o-mini` and 20 / 20 code-only |
+| Hand-agreed check set (20 real awkward records) | `python -m checks.run_checks`: 20 / 20 with `openai/gpt-4o-mini` (locally and on the live URL) and 20 / 20 code-only |
 | Claims that fail a hard rule, last 12 months | ₹21.1 lakh across 109 claims, each counted once (duplicates ₹12.9 lakh, >90 days after expiry ₹8.7 lakh, over-quantity ₹0.7 lakh, less ₹1.2 lakh overlap) |
 
 Discovery and sizing scripts are in `analysis/` (run in order `00` to `18`; `16` transcribes the voice notes through OpenRouter). Their outputs are in `analysis/findings.json`.
