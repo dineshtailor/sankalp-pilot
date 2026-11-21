@@ -93,6 +93,8 @@
   "months_covered": 6,
   "movable_inr_in_window": 32674136,
   "inr_per_year_revenue_protected": 65348273,
+  "unsupplied_inr_window": 122327936,
+  "half_of_unsupplied_inr_window": 61163968,
   "by_cnf_inr_window": {
    "CF-N01": 6676201,
    "CF-N02": 25997935

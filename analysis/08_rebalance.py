@@ -45,6 +45,8 @@ months = R.month.nunique()
 tot = R.movable_inr.sum()
 F["P3_rebalance"] = {
     "months_covered": months, "movable_inr_in_window": round(tot), "inr_per_year_revenue_protected": round(tot / months * 12),
+    "unsupplied_inr_window": round((R.unsupplied_packs * R.sku.map(sk.pts_inr)).sum()),
+    "half_of_unsupplied_inr_window": round((0.5 * R.unsupplied_packs * R.sku.map(sk.pts_inr)).sum()),
     "by_cnf_inr_window": {k: round(v) for k, v in R.groupby("cnf").movable_inr.sum().items()},
     "method": "Per SKU-month (Apr-Sep 2026): min(50% of North unsupplied packs, stock above 2 months cover at other CFAs at prior month-end) x PTS; annualised. Revenue at PTS, not margin.",
     "caveat": "Return-to-CDC then re-dispatch takes 10-14 days (Sch.2 2.5); the gain needs Head SC to act monthly.",

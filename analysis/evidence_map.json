@@ -362,7 +362,7 @@
   },
   {
    "slides": "4",
-   "number": "Scheme cash; upper limit",
+   "number": "Scheme saving; upper limit",
    "shown": "₹1.49 cr; ₹4.75 cr",
    "recomputed": "₹1.49 cr; ₹4.75 cr",
    "ok": true,
@@ -371,12 +371,48 @@
   },
   {
    "slides": "1, 2, 10",
-   "number": "Cash saved a year",
+   "number": "Total saved a year",
    "shown": "₹1.70 cr",
    "recomputed": "₹1.70 cr",
    "ok": true,
    "source": "₹21.1 lakh + ₹80.9 lakh + ₹68.3 lakh",
    "script": "19_evidence_map"
+  },
+  {
+   "slides": "1, 2, 10",
+   "number": "Of which refunds; free goods at PTS",
+   "shown": "₹1.02 cr; ₹68.3 lakh",
+   "recomputed": "₹1.02 cr; ₹68.3 lakh",
+   "ok": true,
+   "source": "refund money; FOC at selling price",
+   "script": "19_evidence_map"
+  },
+  {
+   "slides": "10",
+   "number": "Example: repeat claim value",
+   "shown": "₹26,846",
+   "recomputed": "₹26,846",
+   "ok": true,
+   "source": "expiry_claims rows 3269, 3596",
+   "script": "19_evidence_map"
+  },
+  {
+   "slides": "10",
+   "number": "Example: late claim",
+   "shown": "112 days; ₹10,333",
+   "recomputed": "112 days; ₹10,333",
+   "ok": true,
+   "source": "expiry_claims row 1785; batch_master",
+   "script": "19_evidence_map"
+  },
+  {
+   "slides": "10",
+   "number": "Example: PFL1302 claim-back",
+   "shown": "6.9% vs 1.4%",
+   "recomputed": "6.9% vs 1.4%",
+   "ok": true,
+   "source": "claims pro rata to invoice lines",
+   "script": "11_scheme_sku"
   },
   {
    "slides": "10",
@@ -389,6 +425,42 @@
   },
   {
    "slides": "10",
+   "number": "North unsupplied, Apr–Sep; 50%",
+   "shown": "₹12.23 cr; ₹6.12 cr",
+   "recomputed": "₹12.23 cr; ₹6.12 cr",
+   "ok": true,
+   "source": "primary_sales: ordered − invoiced × PTS",
+   "script": "08_rebalance"
+  },
+  {
+   "slides": "10",
+   "number": "Coverable from surplus; Lucknow; Gurugram",
+   "shown": "₹3.27 cr; ₹2.60 cr; ₹0.67 cr",
+   "recomputed": "₹3.27 cr; ₹2.60 cr; ₹0.67 cr",
+   "ok": true,
+   "source": "cnf_stock_snapshot above 2 months",
+   "script": "08_rebalance"
+  },
+  {
+   "slides": "10",
+   "number": "Free goods; % of sales; quarters over cap",
+   "shown": "₹6.63 cr; 3.29%; 3 of 4",
+   "recomputed": "₹6.63 cr; 3.29%; 3 of 4",
+   "ok": true,
+   "source": "primary_sales L12M; §4.4",
+   "script": "07_sizing"
+  },
+  {
+   "slides": "10",
+   "number": "Expiry % after levers; gap to 1%",
+   "shown": "2.21%; ₹2.43 cr",
+   "recomputed": "2.21%; ₹2.43 cr",
+   "ok": true,
+   "source": "expiry claims less levers 1 and 2",
+   "script": "19_evidence_map"
+  },
+  {
+   "slides": "9",
    "number": "Check set; routed to a person",
    "shown": "20 / 20; 5",
    "recomputed": "20 / 20; 5",
@@ -397,7 +469,7 @@
    "script": "checks/run_checks"
   },
   {
-   "slides": "10",
+   "slides": "9",
    "number": "Automated tests",
    "shown": "65",
    "recomputed": "65",

@@ -129,17 +129,31 @@ dfoc = sum(r["foc_cost_l12m_inr"] for r in drop)
 F["P2_returns_net_of_bad_claims_inr"] = net
 add("10", "Excess returns, net of bad claims", "₹80.9 lakh", lk(net), "8 DROP SKUs; claims in lever 1 removed", "19_evidence_map")
 add("10", "FOC above the 3% cap", "₹68.3 lakh", lk(capx), "primary_sales by quarter; §4.4", "07_sizing")
-add("4", "Scheme cash; upper limit", "₹1.49 cr; ₹4.75 cr", f"{cr(net + capx)}; {cr(net + dfoc)}", "returns + cap; returns + all FOC on DROP SKUs", "19_evidence_map")
-add("1, 2, 10", "Cash saved a year", "₹1.70 cr", cr(P1["inr_per_year"] + net + capx), "₹21.1 lakh + ₹80.9 lakh + ₹68.3 lakh", "19_evidence_map")
+add("4", "Scheme saving; upper limit", "₹1.49 cr; ₹4.75 cr", f"{cr(net + capx)}; {cr(net + dfoc)}", "returns + cap; returns + all FOC on DROP SKUs", "19_evidence_map")
+add("1, 2, 10", "Total saved a year", "₹1.70 cr", cr(P1["inr_per_year"] + net + capx), "₹21.1 lakh + ₹80.9 lakh + ₹68.3 lakh", "19_evidence_map")
+add("1, 2, 10", "Of which refunds; free goods at PTS", "₹1.02 cr; ₹68.3 lakh", f"{cr(P1['inr_per_year'] + net)}; {lk(capx)}", "refund money; FOC at selling price", "19_evidence_map")
+ex1, ex2 = T.claim_record("CLM-2605-04488"), T.claim_record("CLM-2505-00135")
+add("10", "Example: repeat claim value", "₹26,846", f"₹{ex1['claim_value_inr']:,.0f}", "expiry_claims rows 3269, 3596", "19_evidence_map")
+add("10", "Example: late claim", "112 days; ₹10,333", f"{(ex2['claim_date'] - T.batch_record(ex2['batch_no'])['expiry_date']).days} days; ₹{ex2['claim_value_inr']:,.0f}", "expiry_claims row 1785; batch_master", "19_evidence_map")
+pf1302 = next(r for r in cc["rows"] if r["sku_code"] == "PFL1302")
+add("10", "Example: PFL1302 claim-back", "6.9% vs 1.4%", f"{pf1302['scheme_claimback_pct']:.1f}% vs {pf1302['non_scheme_claimback_pct']:.1f}%", "claims pro rata to invoice lines", "11_scheme_sku")
 add("10", "Upside: FOC on DROP SKUs", "₹3.94 cr", cr(dfoc), "includes the ₹68.3 lakh", "12_modules")
+
+PB = F["P3_rebalance"]; PN = PB["by_cnf_inr_window"]
+add("10", "North unsupplied, Apr–Sep; 50%", "₹12.23 cr; ₹6.12 cr", f"{cr(PB['unsupplied_inr_window'])}; {cr(PB['half_of_unsupplied_inr_window'])}", "primary_sales: ordered − invoiced × PTS", "08_rebalance")
+add("10", "Coverable from surplus; Lucknow; Gurugram", "₹3.27 cr; ₹2.60 cr; ₹0.67 cr", f"{cr(PB['movable_inr_in_window'])}; {cr(PN['CF-N02'])}; {cr(PN['CF-N01'])}", "cnf_stock_snapshot above 2 months", "08_rebalance")
+qq = s12.groupby("q")[["gross", "foc"]].sum()
+add("10", "Free goods; % of sales; quarters over cap", "₹6.63 cr; 3.29%; 3 of 4", f"{cr(s12.foc.sum())}; {s12.foc.sum() / s12.gross.sum() * 100:.2f}%; {int((qq.foc > 0.03 * qq.gross).sum())} of {len(qq)}", "primary_sales L12M; §4.4", "07_sizing")
+rem = exp12.value.sum() - P1["inr_per_year"] - net
+add("10", "Expiry % after levers; gap to 1%", "2.21%; ₹2.43 cr", f"{rem / s12.gross.sum() * 100:.2f}%; {cr(rem - 0.01 * s12.gross.sum())}", "expiry claims less levers 1 and 2", "19_evidence_map")
 
 # ---- pilot
 chk = list(pd.read_csv("checks/check_set.csv").itertuples())
 res = pd.read_csv("checks/check_results.csv")
-add("10", "Check set; routed to a person", "20 / 20; 5", f"{int(res['pass'].sum())} / {len(res)}; {sum(1 for r in chk if r.expected_decision == 'NEEDS_PERSON')}", "checks/check_results.csv", "checks/run_checks")
+add("9", "Check set; routed to a person", "20 / 20; 5", f"{int(res['pass'].sum())} / {len(res)}; {sum(1 for r in chk if r.expected_decision == 'NEEDS_PERSON')}", "checks/check_results.csv", "checks/run_checks")
 n = subprocess.run([sys.executable, "-m", "pytest", "--collect-only", "-q"], capture_output=True, text=True, env={**__import__("os").environ, "OPENROUTER_API_KEY": ""}).stdout
 tests = [ln for ln in n.splitlines() if "tests collected" in ln or " collected" in ln]
-add("10", "Automated tests", "65", tests[0].split()[0] if tests else sum("::" in ln for ln in n.splitlines()), "tests/", "pytest")
+add("9", "Automated tests", "65", tests[0].split()[0] if tests else sum("::" in ln for ln in n.splitlines()), "tests/", "pytest")
 e = T.check_claim_line({"stockist_code": "STK0110", "batch_no": "K2430146", "qty": 705, "claim_type": "Expired", "claim_date": "2026-10-15"})
 add("9", "EML-017 claimed vs invoiced", "705 vs 441", f"705 vs {T.supply_of_batch_to_stockist('STK0110', 'K2430146')['packs_incl_free']:.0f}", "primary_sales rows 31143, 32812", "tests")
 add("9", "Neha's duplicate, packs", "272", f"{T.claim_record('CLM-2605-04488')['qty_claimed']:.0f}", "expiry_claims rows 3269, 3596", "tests")
