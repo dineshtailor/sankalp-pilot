@@ -142,6 +142,8 @@ add("10", "Upside: FOC on DROP SKUs", "₹3.94 cr", cr(dfoc), "includes the ₹6
 PB = F["P3_rebalance"]; PN = PB["by_cnf_inr_window"]
 add("10", "North unsupplied, Apr–Sep; 50%", "₹12.23 cr; ₹6.12 cr", f"{cr(PB['unsupplied_inr_window'])}; {cr(PB['half_of_unsupplied_inr_window'])}", "primary_sales: ordered − invoiced × PTS", "08_rebalance")
 add("10", "Coverable from surplus; Lucknow; Gurugram", "₹3.27 cr; ₹2.60 cr; ₹0.67 cr", f"{cr(PB['movable_inr_in_window'])}; {cr(PN['CF-N02'])}; {cr(PN['CF-N01'])}", "cnf_stock_snapshot above 2 months", "08_rebalance")
+S = PB["sensitivity_inr_per_year"]
+add("10 notes, 12", "Sales protected if 10 / 25 / 75 / 100% is real", "₹2.29 / 4.80 / 7.90 / 8.95 cr", f"₹{S['10'] / 1e7:.2f} / {S['25'] / 1e7:.2f} / {S['75'] / 1e7:.2f} / {S['100'] / 1e7:.2f} cr", "same method, changing only the 50%", "08_rebalance")
 qq = s12.groupby("q")[["gross", "foc"]].sum()
 add("10", "Free goods; % of sales; quarters over cap", "₹6.63 cr; 3.29%; 3 of 4", f"{cr(s12.foc.sum())}; {s12.foc.sum() / s12.gross.sum() * 100:.2f}%; {int((qq.foc > 0.03 * qq.gross).sum())} of {len(qq)}", "primary_sales L12M; §4.4", "07_sizing")
 rem = exp12.value.sum() - P1["inr_per_year"] - net

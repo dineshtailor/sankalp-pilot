@@ -308,7 +308,9 @@ def evidence():
     rows = [[r["slides"], r["number"], r["shown"], r["source"], r["script"]] for r in E["rows"]]
     ok = sum(r["ok"] for r in E["rows"])
     d = Doc("Evidence Appendix", f"Every calculated number on the 12 slides, traced to its file and method: {ok} of {len(rows)} reproduce", "SNK-EA-01", owner="FDE team", base_size=8, margins_cm=1.1)
-    d.table(["Slide", "Number", "Value", "File and filter", "Script"], rows, widths_cm=[1.5, 6.1, 3.1, 6.4, 1.7], size=5.9)
+    d.table(["Slide", "Number", "Value", "File and filter", "Script"], rows, widths_cm=[1.5, 5.6, 3.5, 5.8, 2.4], size=5.7)
+    S = F["P3_rebalance"]["sensitivity_inr_per_year"]
+    d.p(f"**The 50% assumption:** the extract cannot separate a new order from a re-order after a cancellation. Sales protected a year: {CR(S['10'])} at 10% real demand, {CR(S['25'])} at 25%, **{CR(S['50'])} at 50%**, {CR(S['75'])} at 75%, {CR(S['100'])} at 100% (capped by surplus stock).", size=6.5)
     d.p("**Re-run:** python -m analysis.19_evidence_map recomputes every row and fails on any mismatch. Scripts are in sankalp-pilot/analysis/. L12M = Oct 25–Sep 26. "
         "**From documents, not calculated:** QBR 90.9% and 99.5% (Doc 6 §1); 3% cap, 1.5×, 90 and 30 days (Doc 2); 14% MAPE and 100%/96% incentive (voice notes, unverified); WPI 0.64956% (NPPA order, 25-Mar-2026).", size=6.5)
     return d.save(DOCS / "07_Evidence_Appendix.docx")

@@ -22,29 +22,37 @@ line = s.groupby(["invoice_no", "sku_code"]).agg(cnf=("cnf_code", "first"), mont
 line["ord"] = first.groupby(["invoice_no", "sku_code"]).ordered_qty.sum().reindex(line.index)
 line = line.reset_index()
 line["unsup"] = (line.ord - line.inv).clip(lower=0)
-rows = []
-for snap in snaps[:-1]:
-    nxt = (pd.Timestamp(snap) + pd.offsets.MonthEnd(1)).to_period("M")
-    remaining = {}  # surplus is consumed once per SKU per month
-    for target in ("CF-N02", "CF-N01"):
-        u = line[(line.cnf == target) & (line.month == nxt)].groupby("sku_code").agg(unsup=("unsup", "sum"))
-        for sku, r in u.iterrows():
-            if r.unsup <= 0:
-                continue
-            if sku not in remaining:  # donors: non-North CFAs only
-                remaining[sku] = sum(surplus.get((snap, cf, sku), 0) for cf in ("CF-E01", "CF-W01", "CF-S01", "CF-S02"))
-            avail = remaining[sku]
-            # conservative: 50% of unsupplied qty is genuine lost demand (rest are re-orders)
-            movable = min(0.5 * r.unsup, avail)
-            remaining[sku] -= movable
-            rows.append({"snapshot": str(pd.Timestamp(snap).date()), "month": str(nxt), "cnf": target, "sku": sku,
-                         "unsupplied_packs": r.unsup, "surplus_elsewhere_packs": avail, "movable_packs": movable,
-                         "movable_inr": movable * sk.pts_inr[sku]})
-R = pd.DataFrame(rows)
+
+
+def scenario(real_demand_share: float) -> pd.DataFrame:
+    """Share of unsupplied order quantity treated as real demand; the rest are assumed re-orders."""
+    rows = []
+    for snap in snaps[:-1]:
+        nxt = (pd.Timestamp(snap) + pd.offsets.MonthEnd(1)).to_period("M")
+        remaining = {}  # surplus is consumed once per SKU per month
+        for target in ("CF-N02", "CF-N01"):
+            u = line[(line.cnf == target) & (line.month == nxt)].groupby("sku_code").agg(unsup=("unsup", "sum"))
+            for sku, r in u.iterrows():
+                if r.unsup <= 0:
+                    continue
+                if sku not in remaining:  # donors: non-North CFAs only
+                    remaining[sku] = sum(surplus.get((snap, cf, sku), 0) for cf in ("CF-E01", "CF-W01", "CF-S01", "CF-S02"))
+                avail = remaining[sku]
+                movable = min(real_demand_share * r.unsup, avail)
+                remaining[sku] -= movable
+                rows.append({"snapshot": str(pd.Timestamp(snap).date()), "month": str(nxt), "cnf": target, "sku": sku,
+                             "unsupplied_packs": r.unsup, "surplus_elsewhere_packs": avail, "movable_packs": movable,
+                             "movable_inr": movable * sk.pts_inr[sku]})
+    return pd.DataFrame(rows)
+
+
+R = scenario(0.5)  # base case: half of unsupplied quantity is real demand
 months = R.month.nunique()
 tot = R.movable_inr.sum()
+sensitivity = {str(int(a * 100)): round(scenario(a).movable_inr.sum() / months * 12) for a in (0.10, 0.25, 0.50, 0.75, 1.00)}
 F["P3_rebalance"] = {
     "months_covered": months, "movable_inr_in_window": round(tot), "inr_per_year_revenue_protected": round(tot / months * 12),
+    "sensitivity_inr_per_year": sensitivity,
     "unsupplied_inr_window": round((R.unsupplied_packs * R.sku.map(sk.pts_inr)).sum()),
     "half_of_unsupplied_inr_window": round((0.5 * R.unsupplied_packs * R.sku.map(sk.pts_inr)).sum()),
     "by_cnf_inr_window": {k: round(v) for k, v in R.groupby("cnf").movable_inr.sum().items()},

@@ -442,6 +442,15 @@
    "script": "08_rebalance"
   },
   {
+   "slides": "10 notes, 12",
+   "number": "Sales protected if 10 / 25 / 75 / 100% is real",
+   "shown": "₹2.29 / 4.80 / 7.90 / 8.95 cr",
+   "recomputed": "₹2.29 / 4.80 / 7.90 / 8.95 cr",
+   "ok": true,
+   "source": "same method, changing only the 50%",
+   "script": "08_rebalance"
+  },
+  {
    "slides": "10",
    "number": "Free goods; % of sales; quarters over cap",
    "shown": "₹6.63 cr; 3.29%; 3 of 4",
