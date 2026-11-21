@@ -1,0 +1,454 @@
+{
+ "rows": [
+  {
+   "slides": "2, 3",
+   "number": "Fill rate Q1 FY27",
+   "shown": "85.3%",
+   "recomputed": "85.3%",
+   "ok": true,
+   "source": "primary_sales: invoiced / ordered, Apr–Jun 26",
+   "script": "01_reconcile"
+  },
+  {
+   "slides": "3",
+   "number": "Fill rate Q1 FY25 → Q2 FY27",
+   "shown": "95% → 80%",
+   "recomputed": "95% → 80%",
+   "ok": true,
+   "source": "primary_sales: same method",
+   "script": "01_reconcile"
+  },
+  {
+   "slides": "3",
+   "number": "Fill rate Q1 FY26 (QBR: 99.5%)",
+   "shown": "91.7%",
+   "recomputed": "91.7%",
+   "ok": true,
+   "source": "primary_sales; QBR Doc 6 §1",
+   "script": "01_reconcile"
+  },
+  {
+   "slides": "3",
+   "number": "Partly filled lines since FY26",
+   "shown": "92–93%",
+   "recomputed": "92–93%",
+   "ok": true,
+   "source": "primary_sales: lines with supply",
+   "script": "02_fillrate_defs"
+  },
+  {
+   "slides": "3",
+   "number": "Claims % of primary, Q2 FY25 → Q2 FY27",
+   "shown": "0.64% → 3.3%",
+   "recomputed": "0.64% → 3.3%",
+   "ok": true,
+   "source": "expiry_claims ÷ primary_sales",
+   "script": "01_reconcile"
+  },
+  {
+   "slides": "3",
+   "number": "FOC % of primary, Q3 FY25",
+   "shown": "4.95%",
+   "recomputed": "4.95%",
+   "ok": true,
+   "source": "primary_sales free_qty × PTS",
+   "script": "01_reconcile"
+  },
+  {
+   "slides": "3, 12",
+   "number": "Sales rows, raw → clean",
+   "shown": "93,809 → 93,064",
+   "recomputed": "93,809 → 93,064",
+   "ok": true,
+   "source": "745 exact duplicates removed",
+   "script": "00_sanity"
+  },
+  {
+   "slides": "3, 12",
+   "number": "Claim rows, raw → clean",
+   "shown": "4,526 → 4,503",
+   "recomputed": "4,526 → 4,503",
+   "ok": true,
+   "source": "23 exact duplicates removed",
+   "script": "00_sanity"
+  },
+  {
+   "slides": "2",
+   "number": "Expiry claims logged, L12M",
+   "shown": "₹5.46 cr",
+   "recomputed": "₹5.46 cr",
+   "ok": true,
+   "source": "expiry_claims: NE + Expired, Oct 25–Sep 26",
+   "script": "07_sizing"
+  },
+  {
+   "slides": "2",
+   "number": "Expiry claims % of primary",
+   "shown": "2.7%",
+   "recomputed": "2.7%",
+   "ok": true,
+   "source": "÷ primary_sales L12M",
+   "script": "07_sizing"
+  },
+  {
+   "slides": "2",
+   "number": "Scheme SKUs",
+   "shown": "15",
+   "recomputed": "15",
+   "ok": true,
+   "source": "primary_sales scheme_code; Doc 2 Annex B",
+   "script": "05_supply"
+  },
+  {
+   "slides": "2",
+   "number": "Scheme SKUs' share of primary",
+   "shown": "61%",
+   "recomputed": "61%",
+   "ok": true,
+   "source": "primary_sales L12M",
+   "script": "05_supply"
+  },
+  {
+   "slides": "2, 4",
+   "number": "Scheme SKUs' share of expiry claims",
+   "shown": "95%",
+   "recomputed": "95%",
+   "ok": true,
+   "source": "expiry_claims L12M",
+   "script": "05_supply"
+  },
+  {
+   "slides": "4",
+   "number": "Claim-back, scheme vs without",
+   "shown": "3–9% vs 1–8%",
+   "recomputed": "3–9% vs 1–8%",
+   "ok": true,
+   "source": "claims pro rata to invoice lines, expired batches",
+   "script": "11_scheme_sku"
+  },
+  {
+   "slides": "5, 9",
+   "number": "SKUs recommended DROP",
+   "shown": "8",
+   "recomputed": "8",
+   "ok": true,
+   "source": "circular_check rule, config.py",
+   "script": "12_modules"
+  },
+  {
+   "slides": "4, 5",
+   "number": "FOC below 1.5× minimum, L12M",
+   "shown": "₹1.05 cr",
+   "recomputed": "₹1.05 cr",
+   "ok": true,
+   "source": "primary_sales; Doc 2 Annex B (lenient reading)",
+   "script": "18_voice_followups"
+  },
+  {
+   "slides": "5",
+   "number": "Month 1 share of quarter, FY26",
+   "shown": "23%",
+   "recomputed": "23%",
+   "ok": true,
+   "source": "primary_sales; Doc 6 §1.1",
+   "script": "19_evidence_map"
+  },
+  {
+   "slides": "7",
+   "number": "Quarter billed in 9-day window, since Q3 FY25",
+   "shown": "25–35%",
+   "recomputed": "25–35%",
+   "ok": true,
+   "source": "primary_sales, 22nd to month-end",
+   "script": "05_supply"
+  },
+  {
+   "slides": "2, 4",
+   "number": "Lucknow cover, 30-Sep-26",
+   "shown": "0.24 months",
+   "recomputed": "0.24 months",
+   "ok": true,
+   "source": "cnf_stock_snapshot",
+   "script": "05_supply"
+  },
+  {
+   "slides": "2",
+   "number": "Lucknow SKUs at zero",
+   "shown": "23",
+   "recomputed": "23",
+   "ok": true,
+   "source": "cnf_stock_snapshot 30-Sep-26",
+   "script": "05_supply"
+  },
+  {
+   "slides": "2, 4",
+   "number": "Kolkata cover Apr–Sep; 30-Sep",
+   "shown": "3.5–6.5; 3.8",
+   "recomputed": "3.5–6.5; 3.8",
+   "ok": true,
+   "source": "cnf_stock_snapshot",
+   "script": "05_supply"
+  },
+  {
+   "slides": "4, 6",
+   "number": "Lucknow demand share, FY25 → H1 FY27",
+   "shown": "15.3 → 20.7%",
+   "recomputed": "15.3 → 20.7%",
+   "ok": true,
+   "source": "primary_sales ordered_qty",
+   "script": "05_supply"
+  },
+  {
+   "slides": "6",
+   "number": "Kolkata demand share, FY25 → H1 FY27",
+   "shown": "17.9 → 13.0%",
+   "recomputed": "17.9 → 13.0%",
+   "ok": true,
+   "source": "primary_sales ordered_qty",
+   "script": "05_supply"
+  },
+  {
+   "slides": "6",
+   "number": "New UP stockists",
+   "shown": "6",
+   "recomputed": "6",
+   "ok": true,
+   "source": "stockist_master appointed_on",
+   "script": "17_voice_tests"
+  },
+  {
+   "slides": "6, 9",
+   "number": "Return-to-CDC moves; value",
+   "shown": "26; ₹79.5 lakh",
+   "recomputed": "26; ₹79.5 lakh",
+   "ok": true,
+   "source": "cnf_stock_snapshot 30-Sep-26",
+   "script": "12_modules"
+  },
+  {
+   "slides": "1, 2, 4, 10",
+   "number": "Revenue protected a year (50% assumption)",
+   "shown": "₹6.53 cr",
+   "recomputed": "₹6.53 cr",
+   "ok": true,
+   "source": "Apr–Sep 26 snapshots × unsupplied North lines",
+   "script": "08_rebalance"
+  },
+  {
+   "slides": "4",
+   "number": "Newer-batch packs, Kolkata vs others, Mar–Sep",
+   "shown": "64–79% vs 10–56%",
+   "recomputed": "64–79% vs 10–56%",
+   "ok": true,
+   "source": "primary_sales × batch_master",
+   "script": "06_fefo_risk"
+  },
+  {
+   "slides": "4, 6, 10",
+   "number": "Stranded lots; value",
+   "shown": "7; ₹11.8 lakh",
+   "recomputed": "7; ₹11.8 lakh",
+   "ok": true,
+   "source": "cnf_stock_snapshot + primary_sales",
+   "script": "18_voice_followups"
+  },
+  {
+   "slides": "4, 6",
+   "number": "Cardio and Pain share of stranded",
+   "shown": "92%",
+   "recomputed": "92%",
+   "ok": true,
+   "source": "sku_master therapy area",
+   "script": "18_voice_followups"
+  },
+  {
+   "slides": "6",
+   "number": "First stranded lot blocked",
+   "shown": "1 Mar 2027",
+   "recomputed": "1 Mar 2027",
+   "ok": true,
+   "source": "batch_master expiry − 60 days (§7.2)",
+   "script": "18_voice_followups"
+  },
+  {
+   "slides": "2, 4",
+   "number": "Repeat / late / over-quantity claims",
+   "shown": "58 / 41 / 21",
+   "recomputed": "58 / 41 / 21",
+   "ok": true,
+   "source": "expiry_claims × primary_sales, L12M",
+   "script": "03_claims"
+  },
+  {
+   "slides": "4",
+   "number": "Unique failing claims",
+   "shown": "109",
+   "recomputed": "109",
+   "ok": true,
+   "source": "each claim counted once",
+   "script": "07_sizing"
+  },
+  {
+   "slides": "11",
+   "number": "Repeat claims already credited",
+   "shown": "46",
+   "recomputed": "46",
+   "ok": true,
+   "source": "expiry_claims status",
+   "script": "07_sizing"
+  },
+  {
+   "slides": "4",
+   "number": "Repeat claims with no invoice ref",
+   "shown": "55%",
+   "recomputed": "55%",
+   "ok": true,
+   "source": "expiry_claims, all periods",
+   "script": "17_voice_tests"
+  },
+  {
+   "slides": "4, 10",
+   "number": "Stop bad claims",
+   "shown": "₹21.1 lakh",
+   "recomputed": "₹21.1 lakh",
+   "ok": true,
+   "source": "§5.2, §5.5, §5.6 failures, L12M",
+   "script": "07_sizing"
+  },
+  {
+   "slides": "4",
+   "number": "Pending claims; value",
+   "shown": "360; ₹95.9 lakh",
+   "recomputed": "360; ₹95.9 lakh",
+   "ok": true,
+   "source": "expiry_claims status = Pending",
+   "script": "07_sizing"
+  },
+  {
+   "slides": "4",
+   "number": "Claim-to-CN days, L12M mean",
+   "shown": "45",
+   "recomputed": "45",
+   "ok": true,
+   "source": "expiry_claims dates; policy 30 (§5.6)",
+   "script": "07_sizing"
+  },
+  {
+   "slides": "4",
+   "number": "Breakage a year; % of primary",
+   "shown": "₹3.5 lakh; 0.018%",
+   "recomputed": "₹3.5 lakh; 0.018%",
+   "ok": true,
+   "source": "expiry_claims Breakage",
+   "script": "07_sizing"
+  },
+  {
+   "slides": "10",
+   "number": "Excess returns, net of bad claims",
+   "shown": "₹80.9 lakh",
+   "recomputed": "₹80.9 lakh",
+   "ok": true,
+   "source": "8 DROP SKUs; claims in lever 1 removed",
+   "script": "19_evidence_map"
+  },
+  {
+   "slides": "10",
+   "number": "FOC above the 3% cap",
+   "shown": "₹68.3 lakh",
+   "recomputed": "₹68.3 lakh",
+   "ok": true,
+   "source": "primary_sales by quarter; §4.4",
+   "script": "07_sizing"
+  },
+  {
+   "slides": "4",
+   "number": "Scheme cash; upper limit",
+   "shown": "₹1.49 cr; ₹4.75 cr",
+   "recomputed": "₹1.49 cr; ₹4.75 cr",
+   "ok": true,
+   "source": "returns + cap; returns + all FOC on DROP SKUs",
+   "script": "19_evidence_map"
+  },
+  {
+   "slides": "1, 2, 10",
+   "number": "Cash saved a year",
+   "shown": "₹1.70 cr",
+   "recomputed": "₹1.70 cr",
+   "ok": true,
+   "source": "₹21.1 lakh + ₹80.9 lakh + ₹68.3 lakh",
+   "script": "19_evidence_map"
+  },
+  {
+   "slides": "10",
+   "number": "Upside: FOC on DROP SKUs",
+   "shown": "₹3.94 cr",
+   "recomputed": "₹3.94 cr",
+   "ok": true,
+   "source": "includes the ₹68.3 lakh",
+   "script": "12_modules"
+  },
+  {
+   "slides": "10",
+   "number": "Check set; routed to a person",
+   "shown": "20 / 20; 5",
+   "recomputed": "20 / 20; 5",
+   "ok": true,
+   "source": "checks/check_results.csv",
+   "script": "checks/run_checks"
+  },
+  {
+   "slides": "10",
+   "number": "Automated tests",
+   "shown": "65",
+   "recomputed": "65",
+   "ok": true,
+   "source": "tests/",
+   "script": "pytest"
+  },
+  {
+   "slides": "9",
+   "number": "EML-017 claimed vs invoiced",
+   "shown": "705 vs 441",
+   "recomputed": "705 vs 441",
+   "ok": true,
+   "source": "primary_sales rows 31143, 32812",
+   "script": "tests"
+  },
+  {
+   "slides": "9",
+   "number": "Neha's duplicate, packs",
+   "shown": "272",
+   "recomputed": "272",
+   "ok": true,
+   "source": "expiry_claims rows 3269, 3596",
+   "script": "tests"
+  }
+ ],
+ "before_after": {
+  "pending_triage": {
+   "APPROVE": {
+    "claims": 264,
+    "inr": 7113122
+   },
+   "NEEDS_PERSON": {
+    "claims": 34,
+    "inr": 708330
+   },
+   "REJECT": {
+    "claims": 62,
+    "inr": 1773341
+   }
+  },
+  "tat_mean": 44.7,
+  "tat_over_30_pct": 74.9,
+  "no_invoice_claims": 410,
+  "no_invoice_inr": 9707916,
+  "no_invoice_matched": 410,
+  "expiry_now_pct": 2.71,
+  "expiry_after_pct": 2.21,
+  "primary_l12m": 2014198984,
+  "gap_to_1pct_inr": 24282176,
+  "foc_now_pct": 3.29,
+  "foc_after_moq_pct": 2.77
+ }
+}

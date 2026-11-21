@@ -2,7 +2,7 @@
 
 | # | Date | Decision | Why (evidence) | Alternatives rejected |
 |---|---|---|---|---|
-| D1 | 19-Nov-26 | Do **not** build the AI demand-forecasting tool the CFO asked for | Partial-fill rate holds steady at 92-93%; the fill-rate fall comes from lines not supplied at all. Lucknow at 0.24 months of cover while Kolkata sits at 3.8-6.5 (cnf_stock_snapshot). 95% of expiry claims are on the 15 scheme SKUs; scheme lots come back at 3-9% vs 1-8% without scheme. A forecast cannot fix "where" stock goes or a sales push | Vendor demand-sensing pilot (₹ unknown, 12 months) |
+| D1 | 19-Nov-26 | Do **not** build the AI demand-forecasting tool the CFO asked for | Partial-fill rate holds steady at 92-93%; the fill-rate fall comes from lines not supplied at all. Lucknow at 0.24 months of cover while Kolkata sits at 3.5-6.5 (cnf_stock_snapshot). 95% of expiry claims are on the 15 scheme SKUs; scheme lots come back at 3-9% vs 1-8% without scheme. A forecast cannot fix "where" stock goes or a sales push | Vendor demand-sensing pilot (₹ unknown, 12 months) |
 | D2 | 19-Nov-26 | Primary user = claims executive in Commercial Finance | Money that leaves the company today: duplicates, late and over-quantity claims credited (₹21.1 lakh in the last 12 months, each claim counted once). Neha: "Something that checks a claim before it reaches my team" | Chatbot over the data (no user, no decision) |
 | D3 | 19-Nov-26 | Rules in Python, model only reads emails and writes notes | Brief: "if a formula can do it, the model should not". A credit note is a GST document | Letting the model judge claims |
 | D4 | 19-Nov-26 | Model note is discarded if it contains any number not in the evidence | Accuracy bar rule 2 (nothing invented) | Trusting the prompt alone |
