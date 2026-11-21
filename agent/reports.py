@@ -136,6 +136,8 @@ def circular_check(skus: list[str] | None = None) -> dict:
             dec, why = "NEEDS PERSON", "Not enough expired scheme lots to judge"
         elif r_s >= C.SCHEME_DROP_CLAIMBACK_PCT and r_s >= C.SCHEME_DROP_MULTIPLE * (r_n or 0):
             dec, why = "DROP", f"Scheme lots come back at {r_s:.1f}% vs {r_n or 0:.1f}% without scheme"
+        elif (r_n or 0) >= C.SCHEME_DROP_CLAIMBACK_PCT:
+            dec, why = "REVIEW SUPPLY", f"Comes back at {r_s:.1f}% on scheme and {r_n:.1f}% without: the channel is over-supplied either way; review volume with Demand Planning"
         else:
             dec, why = "KEEP", f"Scheme-lot claim-back {r_s:.1f}% (non-scheme {r_n or 0:.1f}%)"
         rows.append({"sku_code": sku, "product": sk.loc[sku, "product_description"], "therapy_area": sk.loc[sku, "therapy_area"],
