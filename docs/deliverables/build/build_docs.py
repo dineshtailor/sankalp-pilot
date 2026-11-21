@@ -30,7 +30,7 @@ def CR(x):
 
 cc = rp.circular_check()
 drop = [r for r in cc["rows"] if r.get("decision") == "DROP"]
-drop_ret = sum(r["excess_returns_l12m_inr"] or 0 for r in drop)
+drop_ret = F["P2_returns_net_of_bad_claims_inr"]
 drop_foc = sum(r["foc_cost_l12m_inr"] or 0 for r in drop)
 P1 = F["P1_claim_leakage"]; P1i = P1["items"]
 P2_cap = F["P2_scheme_driven_expiry"]["foc_over_3pct_cap_l12m_inr"]
@@ -47,22 +47,22 @@ def discovery():
     d.callout("Bottom line for the steering group", [
         f"Expiry claims (now **{F['expiry_claims_logged_l12m_cr']:.2f} cr** a year, 2.7% of primary) and the fall in fill rate are **not a forecasting failure**. "
         "They come from three things a forecast cannot fix: quarter-end schemes that push stock the market does not absorb, C&F allocation shares that "
-        "were never re-set (Lucknow empty while Kolkata sits on 4–6 months), and claims credited without a check against billing history.",
+        "were never re-set (Lucknow empty while Kolkata sits on 3.5–6.5 months), and claims credited without a check against billing history.",
         f"We recommend a three-user pilot that protects about **{CR(TOTAL_CASH)} a year in cash** and **{CR(P3)} a year of revenue at PTS**, "
-        "and that the 12-month demand-sensing vendor pilot is deferred until the scheme and allocation distortions are removed."])
+        "and that the 12-month demand-sensing vendor pilot is deferred. This takes expiry claims from 2.71% to about 2.2% of primary; reaching 1% also needs incentive and scheme-volume changes."])
     d.h1("1. Ranked problems")
     d.table(["#", "Problem (owner)", "Evidence (file · rows / page)", "₹ a year", "Method"], [
         ["P1", "**Stockists are short in the North while Kolkata is long.** Allocation shares not reviewed since FY25 (Kavita Rao, Vaishali Kapoor)",
-         "cnf_stock_snapshot.csv: cover 30-Sep-26 Lucknow 0.24 m, 23 SKUs at zero; Kolkata 3.8 m (5.2–6.5 in Apr–Aug). Demand share Lucknow 15.3%→20.7%, Kolkata 17.9%→13.0% (primary_sales.csv ordered_qty). Doc 4 p.1; Doc 5 CF-N02 3rd request; Doc 3 Annexure",
+         "cnf_stock_snapshot.csv: cover 30-Sep-26 Lucknow 0.24 m, 23 SKUs at zero; Kolkata 3.8 m (3.5–6.5 across Apr–Sep). Demand share Lucknow 15.3%→20.7%, Kolkata 17.9%→13.0% (primary_sales.csv ordered_qty). Doc 4 p.1; Doc 5 CF-N02 3rd request; Doc 3 Annexure",
          f"{CR(P3)} revenue protected", "Per SKU-month Apr–Sep 26: min(50% of North unsupplied packs, stock above 2 months at other C&Fs) × PTS, annualised"],
         ["P2", "**Quarter-end schemes create the expiry.** 10+2 since Dec 2024; FOC above the cap; a 100%-or-zero incentive drives the push (Arjun Sethi; CFO approves exceptions)",
-         "15 scheme SKUs = 60% of primary but 95% of expiry claims (L12M). Scheme lots come back at 3.1–9.4% vs 1.1–8.3% without scheme (analysis/11). 25–35% of each quarter billed in the 9-day window. FOC on orders below the 1.5× minimum: ₹1.05 cr L12M. Voice AUD-1001, AUD-1003. Doc 2 §4.4, Annex B",
-         f"{CR(P2_hard)} (up to {CR(drop_ret + drop_foc)})", f"Excess returns on {len(drop)} SKUs recommended for drop ({L(drop_ret)}) + FOC above the 3% cap ({L(P2_cap)}); upside if FOC on dropped SKUs is not replaced"],
+         "15 scheme SKUs = 61% of primary but 95% of expiry claims (L12M). Scheme lots come back at 3.1–9.4% vs 1.1–8.3% without scheme (analysis/11). 25–35% of each quarter billed in the 9-day window. FOC on orders below the 1.5× minimum: ₹1.05 cr L12M. Voice AUD-1001, AUD-1003. Doc 2 §4.4, Annex B",
+         f"{CR(P2_hard)} (up to {CR(drop_ret + drop_foc)})", f"Excess returns on {len(drop)} SKUs recommended for drop, net of P3 ({L(drop_ret)}) + FOC above the 3% cap ({L(P2_cap)}); upside if FOC on dropped SKUs is not replaced"],
         ["P3", "**Claims credited that break the policy.** Two people, no check against sales (Neha Bansal)",
          f"expiry_claims.csv L12M: {P1i['duplicate_same_stockist_batch_qty']['claims']} repeats of same stockist+batch+qty (e.g. rows 3269/3596, Doc 5 11-Aug); {P1i['expired_claim_after_90_days']['claims']} filed >90 days after expiry; {P1i['qty_above_invoiced_excess_only']['claims']} above packs invoiced. 55% of repeats have no invoice ref; C&F told parties to resend (CALL 8662). Doc 2 §5.2, §5.5, §5.6",
          f"{L(P1['inr_per_year'])} cash", "Value of credited/pending L12M claims failing a hard rule (over-quantity: excess packs only; each claim counted once)"],
         ["P4", "**FEFO broke at Kolkata after the WMS change** (Subhajit Banerjee; Hooghly C&F)",
-         "From Mar-26, 64–80% of Kolkata packs ship from a newer batch while an older one ships the same month vs 10–55% elsewhere; 7 idle lots at Kolkata only, 92% Cardio and Pain, first blocked 1 Mar 2027 (cnf_stock_snapshot). Voice AUD-1014; Doc 3 cl. 4.3, 6.3",
+         "From Mar-26, 64–79% of Kolkata packs ship from a newer batch while an older one ships the same month vs 10–56% elsewhere; 7 idle lots at Kolkata only, 92% Cardio and Pain, first blocked 1 Mar 2027 (cnf_stock_snapshot). Voice AUD-1014; Doc 3 cl. 4.3, 6.3",
          "₹11.8 lakh at risk (one-off)", "Value at PTS of lots idle 90+ days while a newer batch shipped; not in the annual total"],
         ["P5", "**Claim-to-credit-note takes 45 days** vs 30 in policy (Neha Bansal)",
          f"Mean {TAT['mean_days']} days, {TAT['share_over_30d_pct']}% over 30; {TAT['pending_claims']} pending worth {L(TAT['pending_inr'])}, oldest Jun-26 (expiry_claims.csv). Stockists holding payment (Doc 5, 10-Sep, EML-024)",
@@ -72,7 +72,7 @@ def discovery():
     d.h1("2. Our view on the CFO's ask (an AI demand-forecasting tool)")
     d.image(CH / "kpis.png", width_cm=8.6, caption="Claims % of primary and fill rate by quarter, recomputed from the raw extracts")
     d.bullets([
-        "**The fill-rate fall is about where stock goes, not how much.** Partially filled lines hold at 92–93% fill; the decline comes from lines not supplied at all, "
+        "**The fill-rate fall is about where stock goes, not how much.** Partly filled lines have held at 92–93% since FY26; the decline comes from lines not supplied at all, "
         "concentrated where a C&F is at zero while another holds 3–6 months (P1). A national forecast is split by the same stale allocation tab (Doc 4, Vaishali).",
         "**Planning already reports about 14% SKU-month MAPE** (voice note AUD-1013; not testable, no forecast file).",
         "**The expiry is pushed, not forecast.** 95% of expiry value sits on scheme SKUs and scheme lots return far more often (P2). A model trained on primary sales "
@@ -105,7 +105,7 @@ def discovery():
     if not VOICE:
         d.p("The six voice notes are **not yet transcribed**, so no finding above relies on them.", size=8)
     d.p("Method: all figures recomputed from the raw extracts after cleaning (745 duplicate sales rows and 23 duplicate claim rows removed, three date formats, "
-        "code variants such as CFE01 and PFL-1001 normalised). Scripts: sankalp-pilot/analysis/00–18. L12M = 01-Oct-25 to 30-Sep-26. Rows are spreadsheet rows (header = row 1).",
+        "code variants such as CFE01 and PFL-1001 normalised). Scripts: sankalp-pilot/analysis/00–19. L12M = 01-Oct-25 to 30-Sep-26. Rows are spreadsheet rows (header = row 1).",
         size=7, color=MUTE, italic=True)
     return d.save(DOCS / "01_Discovery_Note.docx")
 
@@ -302,6 +302,50 @@ def runbook():
     return d.save(DOCS / "05_Deployment_Runbook.docx")
 
 
+def evidence():
+    E = json.load(open(REPO / "analysis" / "evidence_map.json", encoding="utf-8"))
+    rows = [[r["slides"], r["number"], r["shown"], r["source"], r["script"]] for r in E["rows"]]
+    ok = sum(r["ok"] for r in E["rows"])
+    d = Doc("Evidence Appendix", f"Every calculated number on the 12 slides, traced to its file and method: {ok} of {len(rows)} reproduce", "SNK-EA-01", owner="FDE team", base_size=8, margins_cm=1.1)
+    d.table(["Slide", "Number", "Value", "File and filter", "Script"], rows, widths_cm=[1.5, 6.1, 3.1, 6.4, 1.7], size=5.9)
+    d.p("**Re-run:** python -m analysis.19_evidence_map recomputes every row and fails on any mismatch. Scripts are in sankalp-pilot/analysis/. L12M = Oct 25–Sep 26. "
+        "**From documents, not calculated:** QBR 90.9% and 99.5% (Doc 6 §1); 3% cap, 1.5×, 90 and 30 days (Doc 2); 14% MAPE and 100%/96% incentive (voice notes, unverified); WPI 0.64956% (NPPA order, 25-Mar-2026).", size=6.5)
+    return d.save(DOCS / "07_Evidence_Appendix.docx")
+
+
+def before_after():
+    B = json.load(open(REPO / "analysis" / "evidence_map.json", encoding="utf-8"))["before_after"]
+    T3 = B["pending_triage"]
+    d = Doc("Before and After Report", "Today's process against the pilot, in time and in rupees, with the method stated", "SNK-BA-01", owner="FDE team", base_size=9, margins_cm=1.5)
+    d.callout("Bottom line", [f"The pilot targets **{CR(TOTAL_CASH)} a year in cash** and protects **{CR(P3)} of sales**. It takes expiry claims from **{B['expiry_now_pct']}% to about {B['expiry_after_pct']}%** of primary.",
+                              f"That does **not** reach the CFO's 1% goal: a further **{CR(B['gap_to_1pct_inr'])}** a year has to come from changing the incentive and scheme volumes."])
+    d.h1("1. Process")
+    d.table(["Step", "Today (evidence)", "With the pilot", "Who still decides"], [
+        ["Check claim against billing", "Not done: two people, about 4,000 lines a year (Doc 4, Doc 6)", "6 policy checks with evidence rows; 4.4 s per record on the live URL", "Claims executive"],
+        ["Find duplicates", f"'Could not complete the duplicate check' (Doc 5, 1 Oct); {P1['repeat_claims_credited']} repeat claims credited in L12M", "Flagged before the credit note, citing the earlier claim", "Claims executive"],
+        ["Claim with no invoice", f"{B['no_invoice_claims']} claims ({L(B['no_invoice_inr'])}) in L12M on an 'approved' email (Doc 4)", f"Supplying invoice found for all {B['no_invoice_matched']}", "Area Manager, Finance"],
+        ["Clear the backlog", f"{TAT['pending_claims']} pending ({L(TAT['pending_inr'])}); {B['tat_mean']} days to CN, {B['tat_over_30_pct']}% over the 30-day policy", f"Sorted now: {T3['APPROVE']['claims']} pass ({L(T3['APPROVE']['inr'])}), {T3['REJECT']['claims']} fail ({L(T3['REJECT']['inr'])}), {T3['NEEDS_PERSON']['claims']} need a person ({L(T3['NEEDS_PERSON']['inr'])})", "Commercial Finance"],
+        ["Monthly claims audit", "Register consolidated by hand (Doc 5)", "All 229 September claims re-checked in about 6 s", "Controller"],
+        ["Approve a scheme", "'Nobody had an estimate' of returns (Doc 6 minutes)", "Claim-back, FOC cost and drop/keep per SKU", "NSM; CFO for cap"],
+        ["Rebalance stock", "Lucknow's third request since May (Doc 5); FY25 split (voice note)", f"{REB['moves']} moves worth {L(REB['value_inr'])} listed from the month-end snapshot", "Head of Supply Chain"],
+        ["Spot FEFO failure", "C&F self-declares 'Yes' (Doc 3 Annexure)", "7 stranded Kolkata lots with batch, value and block date", "RDM East"],
+    ], widths_cm=[3.3, 6.0, 5.6, 3.1], size=7.5)
+    d.h1("2. Rupees a year")
+    d.table(["Lever", "Today", "With the pilot", "Method and assumption"], [
+        ["Bad claims", f"{L(P1['inr_per_year'])} credited or pending", "Stopped before the CN", "L12M claims failing §5.2, §5.5 or §5.6; each counted once"],
+        ["Excess scheme returns", L(drop_ret), "Avoided", f"{len(drop)} SKUs dropped; assumes those lots then behave like non-scheme lots; net of bad claims"],
+        ["FOC above 3% cap", L(P2_cap), "₹0", f"Enforcing the 1.5× minimum removes ₹1.05 cr, taking FOC from {B['foc_now_pct']}% to {B['foc_after_moq_pct']}%"],
+        ["**Cash total**", f"**{CR(TOTAL_CASH)}**", "**Saved**", "Assumes owners act on each recommendation"],
+        ["North sales lost", CR(P3), "Protected (revenue, not profit)", "50% of unsupplied North demand, capped by surplus stock elsewhere"],
+        ["Kolkata stranded lots", "₹11.8 lakh at risk", "Picked before the 60-day block", "One-off; not in the annual total"],
+    ], widths_cm=[3.7, 3.5, 3.6, 7.2], size=7.5)
+    d.h1("3. What we are not claiming")
+    d.bullets(["**Hours saved:** the pack has no measured time per claim. Measure minutes per claim for one week before and after go-live.",
+               "**Faster credit notes:** the tool prepares the decision; reaching 30 days also depends on Finance capacity and C&F verification.",
+               "**Sales impact of dropping schemes:** not measurable from primary data alone; test on the December circular."], size=8)
+    return d.save(DOCS / "08_Before_After_Report.docx")
+
+
 if __name__ == "__main__":
-    for fn in (plan, discovery, architecture, srs, runbook):
+    for fn in (plan, discovery, architecture, srs, runbook, evidence, before_after):
         print("wrote", fn())

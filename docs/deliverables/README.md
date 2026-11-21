@@ -11,6 +11,6 @@ Live pilot: https://sankalp-pilot-five.vercel.app
 | 5 | Deck (12 slides, demo on slide 9) | `04_SteerCo_Deck.pptx` / `.pdf` |
 
 Supporting: `00_Project_Plan`, `PROJECT_PLAN.md`, `03_SRS_Traceability_Test_Report`, `05_Deployment_Runbook`,
-`06_Research_Notes.md`, `voice/` (transcripts and translations), `charts/`, and `build/` (regenerates the documents).
+`06_Research_Notes.md`, `07_Evidence_Appendix` (every slide number mapped to its source), `08_Before_After_Report`, `voice/` (transcripts and translations), `charts/`, and `build/` (regenerates the documents).
 
 Fictional teaching case (FDE Academy). Pfizer Limited is not involved. Keep this repository private.
