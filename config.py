@@ -60,4 +60,5 @@ CLAUSES = {
     "stock_norm": "CO-POL-014 §4.5 no scheme above 2.5 months of stock",
     "fefo": "SC-AGR-CF-003 cl. 6.3 and Sch.2 2.3(2) FEFO picking",
     "return_cdc": "SC-AGR-CF-003 Sch.2 2.5 return to CDC (Head SC approval)",
+    "gst_cn": "CGST Act 2017 s.34(2), amended by Finance Act 2022 (w.e.f. 01-Oct-2022): CN by 30 Nov after the FY of supply",
 }

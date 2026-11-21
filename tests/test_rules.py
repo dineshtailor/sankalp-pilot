@@ -118,6 +118,14 @@ def test_injection_text_is_flagged():
     assert R.injection_flags("Please process our expiry claim") == []
 
 
+def test_gst_credit_note_deadline():
+    # supply in FY 2024-25 -> deadline 30 Nov 2025 (CGST s.34(2) as amended w.e.f. 01-Oct-2022)
+    assert R.gst_cn_deadline(date(2025, 3, 31)) == date(2025, 11, 30)
+    assert R.gst_cn_deadline(date(2025, 4, 1)) == date(2026, 11, 30)
+    assert "deadline was" in R.check_gst_cn_window(date(2025, 12, 1), date(2025, 3, 31))["detail"]
+    assert R.check_gst_cn_window(date(2025, 11, 30), date(2025, 3, 31))["status"] == R.INFO
+
+
 def test_policy_numbers_match_documents():
     assert (C.NEAR_EXPIRY_WINDOW_BEFORE_DAYS, C.EXPIRED_WINDOW_AFTER_DAYS, C.TRANSIT_CLAIM_WINDOW_DAYS) == (90, 90, 7)
     assert (C.MIN_RSL_SHARE_AT_INVOICE, C.SCHEME_CAP_SHARE, C.SCHEME_STOCK_NORM_MONTHS) == (0.60, 0.03, 2.5)

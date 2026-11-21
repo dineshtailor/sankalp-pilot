@@ -199,6 +199,8 @@ def chk_invoice(f: dict) -> list[dict]:
     out = [R.check_invoice_ref(d.norm_invoice(ln["invoice_ref"]) if ln.get("invoice_ref") else "", f["sup"]["invoices"])]
     if ln.get("cnf_code"):
         out.append(R.check_billing_cfa(d.norm_cnf(ln["cnf_code"]), f["sup"]["cnfs"]))
+    if f["sup"].get("found"):
+        out.append(R.check_gst_cn_window(ln.get("claim_date"), f["sup"].get("first_invoice_date")))
     return out
 
 

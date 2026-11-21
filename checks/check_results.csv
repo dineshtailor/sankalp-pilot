@@ -1,14 +1,14 @@
 id,input,expected,got,pass,model_calls,seconds,explanation
-C01,EML-001,APPROVE,APPROVE,True,0,1.68,"Line 1: APPROVE (INR 5,749.40 at PTS). All checks passed."
-C02,EML-002,APPROVE,APPROVE,True,0,0.05,"Line 1: APPROVE (INR 18,729.80 at PTS). All checks passed. Line 2: APPROVE (INR 13,882.40 at PTS). All checks passed. Line 3: APPROVE (INR 6,354.60 at PTS). All checks passed."
-C03,EML-005,APPROVE,APPROVE,True,0,0.02,"Line 1: APPROVE (INR 14,317.80 at PTS). All checks passed."
-C04,EML-003,APPROVE,APPROVE,True,0,0.04,"Line 1: APPROVE (INR 12,328.40 at PTS). All checks passed. Line 2: APPROVE (INR 44,760.60 at PTS). All checks passed."
+C01,EML-001,APPROVE,APPROVE,True,0,1.75,"Line 1: APPROVE (INR 5,749.40 at PTS). All checks passed."
+C02,EML-002,APPROVE,APPROVE,True,0,0.06,"Line 1: APPROVE (INR 18,729.80 at PTS). All checks passed. Line 2: APPROVE (INR 13,882.40 at PTS). All checks passed. Line 3: APPROVE (INR 6,354.60 at PTS). All checks passed."
+C03,EML-005,APPROVE,APPROVE,True,0,0.03,"Line 1: APPROVE (INR 14,317.80 at PTS). All checks passed."
+C04,EML-003,APPROVE,APPROVE,True,0,0.05,"Line 1: APPROVE (INR 12,328.40 at PTS). All checks passed. Line 2: APPROVE (INR 44,760.60 at PTS). All checks passed."
 C05,EML-007,NEEDS_PERSON,NEEDS_PERSON,True,0,0.01,Line 1: NEEDS PERSON. batch: Batch K23O0830 not found in batch master; close match: K2300830.
-C06,EML-008,NEEDS_PERSON,NEEDS_PERSON,True,0,0.02,"Line 1: NEEDS PERSON (INR 26,574.00 at PTS). quantity: Quantity stated in another unit ('43 boxes x 10 = 430 strips'); confirm number of packs."
+C06,EML-008,NEEDS_PERSON,NEEDS_PERSON,True,0,0.04,"Line 1: NEEDS PERSON (INR 26,574.00 at PTS). quantity: Quantity stated in another unit ('43 boxes x 10 = 430 strips'); confirm number of packs."
 C07,EML-006,NEEDS_PERSON,NEEDS_PERSON,True,0,0.01,Line 1: NEEDS PERSON. batch: No batch number given; product looks like PFL1503.
-C08,EML-011,NEEDS_PERSON,NEEDS_PERSON,True,0,0.01,"Line 1: NEEDS PERSON (INR 7,639.80 at PTS). stockist: Sender not matched to a stockist in the master ('blank'). quantity: No packs of this batch were invoiced to this stockist in the extract. invoice_"
-C09,EML-012,NEEDS_PERSON,NEEDS_PERSON,True,0,0.05,"Line 1: NEEDS PERSON (INR 18,130.00 at PTS). batch: Expiry written by stockist 2027-03-31 differs from master 2026-09-30."
-C10,EML-009,REJECT,REJECT,True,0,0.04,"Line 1: APPROVE (INR 33,221.20 at PTS). All checks passed. Line 2: REJECT (INR 46,191.60 at PTS). window: Filed 188 days after expiry (2026-03-31); limit is 90 days."
+C08,EML-011,NEEDS_PERSON,NEEDS_PERSON,True,0,0.02,"Line 1: NEEDS PERSON (INR 7,639.80 at PTS). stockist: Sender not matched to a stockist in the master ('blank'). quantity: No packs of this batch were invoiced to this stockist in the extract. invoice_"
+C09,EML-012,NEEDS_PERSON,NEEDS_PERSON,True,0,0.03,"Line 1: NEEDS PERSON (INR 18,130.00 at PTS). batch: Expiry written by stockist 2027-03-31 differs from master 2026-09-30."
+C10,EML-009,REJECT,REJECT,True,0,0.06,"Line 1: APPROVE (INR 33,221.20 at PTS). All checks passed. Line 2: REJECT (INR 46,191.60 at PTS). window: Filed 188 days after expiry (2026-03-31); limit is 90 days."
 C11,EML-010,REJECT,REJECT,True,0,0.02,"Line 1: REJECT (INR 12,348.60 at PTS). window: Filed 169 days after expiry (2026-04-30); limit is 90 days."
 C12,EML-013,REJECT,REJECT,True,0,0.04,"Line 1: NEEDS PERSON (INR 2,342.40 at PTS). quantity: Quantity stated in another unit (''strips' for a bottle SKU'); confirm number of packs. Line 2: REJECT (INR 2,342.40 at PTS). quantity: Quantity s"
 C13,EML-014,REJECT,REJECT,True,0,0.02,"Line 1: REJECT (INR 36,451.80 at PTS). quantity: Claimed 693 + earlier 0 = 693 > 462 packs invoiced incl. free."

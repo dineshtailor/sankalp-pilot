@@ -99,6 +99,26 @@ def check_invoice_ref(ref: str, invoices_for_stockist_batch: list[str]) -> dict:
     return _r("invoice_ref", PERSON, "No invoice reference and no supply found: §5.4 ledger check with written Area Manager approval", "invoice_ref")
 
 
+def gst_cn_deadline(invoice_date) -> date | None:
+    """CGST Act 2017 s.34(2) as amended by Finance Act 2022 (in force 01-Oct-2022): a GST credit note for a supply
+    must be declared by 30 November following the end of the financial year of that supply."""
+    i = _d(invoice_date)
+    if i is None:
+        return None
+    fy_end_year = i.year + 1 if i.month >= 4 else i.year  # FY ends 31 March
+    return date(fy_end_year, 11, 30)
+
+
+def check_gst_cn_window(claim_date, supply_invoice_date) -> dict:
+    """INFO only: does not change the claim decision; tells Finance whether the CN can carry GST."""
+    dl, cd = gst_cn_deadline(supply_invoice_date), _d(claim_date)
+    if dl is None or cd is None:
+        return _r("gst_cn", INFO, "Supplying invoice date unknown: Finance to confirm GST treatment of the CN", "gst_cn")
+    if cd > dl:
+        return _r("gst_cn", INFO, f"Supply invoiced {_d(supply_invoice_date)}: GST credit-note deadline was {dl}; CN cannot reduce output GST, Finance to confirm treatment", "gst_cn")
+    return _r("gst_cn", INFO, f"GST credit note possible until {dl} (supply of {_d(supply_invoice_date)})", "gst_cn")
+
+
 def check_billing_cfa(claim_cfa: str, billing_cfas: list[str]) -> dict:
     """CO-POL-014 §5.1: returns only at the CFA that billed the stock."""
     if not billing_cfas:
