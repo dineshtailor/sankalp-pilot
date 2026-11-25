@@ -166,7 +166,14 @@ def sales() -> pd.DataFrame:
     for c in ("invoiced_qty", "free_qty", "net_value_inr"):
         df[c] = df[c].fillna(0.0)
     df["scheme_code"] = df["scheme_code"].map(norm_scheme)
-    QUALITY["primary_sales"] = {"raw_rows": raw, "exact_duplicates_removed": dups, "rows": len(df),
+    # Rows that only differed in how a date or code was written are duplicates too.
+    df, fmt_dups = _dedupe(df)
+    # A split order line repeats with ordered_qty on the first row only (data dictionary §5.4). Some extracts repeat it
+    # on every row of the same invoice + SKU; count it once so a fully supplied line is not shown as short.
+    again = df["ordered_qty"].notna() & df.duplicated(subset=["invoice_no", "sku_code", "ordered_qty"], keep="first")
+    df.loc[again, "ordered_qty"] = float("nan")
+    QUALITY["primary_sales"] = {"raw_rows": raw, "exact_duplicates_removed": dups, "format_duplicates_removed": fmt_dups,
+                                "repeated_ordered_qty_blanked": int(again.sum()), "rows": len(df),
                                 "lines_not_supplied_blank_batch": int((df["batch_no"] == "").sum())}
     return df.reset_index(drop=True)
 
@@ -189,7 +196,8 @@ def claims() -> pd.DataFrame:
     df["original_invoice_ref"] = df["original_invoice_ref"].map(lambda s: norm_invoice(s) if str(s).strip() else "")
     df["claim_type"] = df["claim_type"].str.strip()
     df["status"] = df["status"].str.strip()
-    QUALITY["expiry_claims"] = {"raw_rows": raw, "exact_duplicates_removed": dups, "rows": len(df),
+    df, fmt_dups = _dedupe(df)
+    QUALITY["expiry_claims"] = {"raw_rows": raw, "exact_duplicates_removed": dups, "format_duplicates_removed": fmt_dups, "rows": len(df),
                                 "claim_no_repeated_after_dedupe": int(df["claim_no"].duplicated().sum())}
     return df.reset_index(drop=True)
 

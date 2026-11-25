@@ -41,13 +41,13 @@ partial = ok_l.groupby("q").inv.sum() / ok_l.groupby("q").ord.sum() * 100
 partial = partial[[q for q in partial.index if q >= "FY26"]]
 qg, qf = s.groupby("q").gross.sum(), s.groupby("q").foc.sum()
 cq = f.assign(q=fq(f.claim_date)).groupby("q").claim_value_inr.sum() / qg * 100
-add("2, 3", "Fill rate Q1 FY27", "85.3%", f"{fill['FY27Q1']:.1f}%", "primary_sales: invoiced / ordered, Apr–Jun 26", "01_reconcile")
-add("3", "Fill rate Q1 FY25 → Q2 FY27", "95% → 80%", f"{fill['FY25Q1']:.0f}% → {fill['FY27Q2']:.0f}%", "primary_sales: same method", "01_reconcile")
-add("3", "Fill rate Q1 FY26 (QBR: 99.5%)", "91.7%", f"{fill['FY26Q1']:.1f}%", "primary_sales; QBR Doc 6 §1", "01_reconcile")
-add("3", "Partly filled lines since FY26", "92–93%", f"{partial.min():.0f}–{partial.max():.0f}%", "primary_sales: lines with supply", "02_fillrate_defs")
+add("2, 3", "Fill rate Q1 FY27", "88.0%", f"{fill['FY27Q1']:.1f}%", "primary_sales: invoiced / ordered, Apr–Jun 26", "01_reconcile")
+add("3", "Fill rate Q1 FY25 → Q2 FY27", "99% → 83%", f"{fill['FY25Q1']:.0f}% → {fill['FY27Q2']:.0f}%", "primary_sales: same method", "01_reconcile")
+add("3", "Fill rate Q1 FY26 (QBR: 99.5%)", "95.5%", f"{fill['FY26Q1']:.1f}%", "primary_sales; QBR Doc 6 §1", "01_reconcile")
+add("3", "Partly filled lines since FY26", "96–97%", f"{partial.min():.0f}–{partial.max():.0f}%", "primary_sales: lines with supply", "02_fillrate_defs")
 add("3", "Claims % of primary, Q2 FY25 → Q2 FY27", "0.64% → 3.3%", f"{cq['FY25Q2']:.2f}% → {cq['FY27Q2']:.1f}%", "expiry_claims ÷ primary_sales", "01_reconcile")
 add("3", "FOC % of primary, Q3 FY25", "4.95%", f"{qf['FY25Q3'] / qg['FY25Q3'] * 100:.2f}%", "primary_sales free_qty × PTS", "01_reconcile")
-add("3, 12", "Sales rows, raw → clean", "93,809 → 93,064", f"{d.QUALITY['primary_sales']['raw_rows']:,} → {len(s):,}", "745 exact duplicates removed", "00_sanity")
+add("3, 12", "Sales rows, raw → clean", "93,809 → 93,063", f"{d.QUALITY['primary_sales']['raw_rows']:,} → {len(s):,}", "746 duplicates removed (1 after formatting)", "00_sanity")
 add("3, 12", "Claim rows, raw → clean", "4,526 → 4,503", f"{d.QUALITY['expiry_claims']['raw_rows']:,} → {len(c):,}", "23 exact duplicates removed", "00_sanity")
 
 # ---- expiry and schemes
@@ -66,7 +66,7 @@ fy26 = s[s.q.str.startswith("FY26")]
 add("5", "Month 1 share of quarter, FY26", "23%", f"{fy26[((fy26.invoice_date.dt.month - 4) % 3) == 0].gross.sum() / fy26.gross.sum() * 100:.0f}%", "primary_sales; Doc 6 §1.1", "19_evidence_map")
 win = s[s.invoice_date.dt.month.isin([3, 6, 9, 12]) & (s.invoice_date.dt.day >= 22)].groupby("q").net_value_inr.sum() / s.groupby("q").net_value_inr.sum() * 100
 win = win[[q for q in win.index if q >= "FY25Q3"]]
-add("7", "Quarter billed in 9-day window, since Q3 FY25", "25–35%", f"{win.min():.0f}–{win.max():.0f}%", "primary_sales, 22nd to month-end", "05_supply")
+add("7", "Quarter billed in 9-day window, since Q3 FY25", "25–34%", f"{win.min():.0f}–{win.max():.0f}%", "primary_sales, 22nd to month-end", "05_supply")
 
 # ---- allocation and stock
 snap = st[st.snapshot_date == st.snapshot_date.max()]
@@ -80,12 +80,12 @@ add("2, 4", "Kolkata cover Apr–Sep; 30-Sep", "3.5–6.5; 3.8", f"{k.min():.1f}
 o = s[s.ordered_qty.notna()]
 sh = lambda g: g.groupby("cnf_code").ordered_qty.sum() / g.ordered_qty.sum() * 100
 a, b = sh(o[o.invoice_date < "2025-04-01"]), sh(o[o.invoice_date >= "2026-04-01"])
-add("4, 6", "Lucknow demand share, FY25 → H1 FY27", "15.3 → 20.7%", f"{a['CF-N02']:.1f} → {b['CF-N02']:.1f}%", "primary_sales ordered_qty", "05_supply")
-add("6", "Kolkata demand share, FY25 → H1 FY27", "17.9 → 13.0%", f"{a['CF-E01']:.1f} → {b['CF-E01']:.1f}%", "primary_sales ordered_qty", "05_supply")
+add("4, 6", "Lucknow demand share, FY25 → H1 FY27", "15.3 → 20.8%", f"{a['CF-N02']:.1f} → {b['CF-N02']:.1f}%", "primary_sales ordered_qty", "05_supply")
+add("6", "Kolkata demand share, FY25 → H1 FY27", "17.8 → 13.3%", f"{a['CF-E01']:.1f} → {b['CF-E01']:.1f}%", "primary_sales ordered_qty", "05_supply")
 add("6", "New UP stockists", "6", int(d.stockists().appointed_on.notna().sum()), "stockist_master appointed_on", "17_voice_tests")
 rb = rp.rebalance()
 add("6, 9", "Return-to-CDC moves; value", "26; ₹79.5 lakh", f"{len(rb['moves'])}; {lk(rb['total_value_inr'])}", "cnf_stock_snapshot 30-Sep-26", "12_modules")
-add("1, 2, 4, 10", "Revenue protected a year (50% assumption)", "₹6.53 cr", cr(F["P3_rebalance"]["inr_per_year_revenue_protected"]), "Apr–Sep 26 snapshots × unsupplied North lines", "08_rebalance")
+add("1, 2, 4, 10", "Revenue protected a year (50% assumption)", "₹5.19 cr", cr(F["P3_rebalance"]["inr_per_year_revenue_protected"]), "Apr–Sep 26 snapshots × unsupplied North lines", "08_rebalance")
 x = s[(s.batch_no != "") & (s.invoice_date >= "2026-03-01")].copy()
 x["e"] = x.batch_no.map(d.batches().expiry_date); x["ym"] = x.invoice_date.dt.to_period("M")
 x["m"] = x.groupby(["cnf_code", "sku_code", "ym"]).e.transform("min")
@@ -140,10 +140,10 @@ add("10", "Example: PFL1302 claim-back", "6.9% vs 1.4%", f"{pf1302['scheme_claim
 add("10", "Upside: FOC on DROP SKUs", "₹3.94 cr", cr(dfoc), "includes the ₹68.3 lakh", "12_modules")
 
 PB = F["P3_rebalance"]; PN = PB["by_cnf_inr_window"]
-add("10", "North unsupplied, Apr–Sep; 50%", "₹12.23 cr; ₹6.12 cr", f"{cr(PB['unsupplied_inr_window'])}; {cr(PB['half_of_unsupplied_inr_window'])}", "primary_sales: ordered − invoiced × PTS", "08_rebalance")
-add("10", "Coverable from surplus; Lucknow; Gurugram", "₹3.27 cr; ₹2.60 cr; ₹0.67 cr", f"{cr(PB['movable_inr_in_window'])}; {cr(PN['CF-N02'])}; {cr(PN['CF-N01'])}", "cnf_stock_snapshot above 2 months", "08_rebalance")
+add("10", "North unsupplied, Apr–Sep; 50%", "₹10.77 cr; ₹5.39 cr", f"{cr(PB['unsupplied_inr_window'])}; {cr(PB['half_of_unsupplied_inr_window'])}", "primary_sales: ordered − invoiced × PTS", "08_rebalance")
+add("10", "Coverable from surplus; Lucknow; Gurugram", "₹2.60 cr; ₹2.32 cr; ₹0.28 cr", f"{cr(PB['movable_inr_in_window'])}; {cr(PN['CF-N02'])}; {cr(PN['CF-N01'])}", "cnf_stock_snapshot above 2 months", "08_rebalance")
 S = PB["sensitivity_inr_per_year"]
-add("10 notes, 12", "Sales protected if 10 / 25 / 75 / 100% is real", "₹2.29 / 4.80 / 7.90 / 8.95 cr", f"₹{S['10'] / 1e7:.2f} / {S['25'] / 1e7:.2f} / {S['75'] / 1e7:.2f} / {S['100'] / 1e7:.2f} cr", "same method, changing only the 50%", "08_rebalance")
+add("10 notes, 12", "Sales protected if 10 / 25 / 75 / 100% is real", "₹2.01 / 4.11 / 5.93 / 6.38 cr", f"₹{S['10'] / 1e7:.2f} / {S['25'] / 1e7:.2f} / {S['75'] / 1e7:.2f} / {S['100'] / 1e7:.2f} cr", "same method, changing only the 50%", "08_rebalance")
 qq = s12.groupby("q")[["gross", "foc"]].sum()
 add("10", "Free goods; % of sales; quarters over cap", "₹6.63 cr; 3.29%; 3 of 4", f"{cr(s12.foc.sum())}; {s12.foc.sum() / s12.gross.sum() * 100:.2f}%; {int((qq.foc > 0.03 * qq.gross).sum())} of {len(qq)}", "primary_sales L12M; §4.4", "07_sizing")
 rem = exp12.value.sum() - P1["inr_per_year"] - net
@@ -155,7 +155,7 @@ res = pd.read_csv("checks/check_results.csv")
 add("9", "Check set; routed to a person", "20 / 20; 5", f"{int(res['pass'].sum())} / {len(res)}; {sum(1 for r in chk if r.expected_decision == 'NEEDS_PERSON')}", "checks/check_results.csv", "checks/run_checks")
 n = subprocess.run([sys.executable, "-m", "pytest", "--collect-only", "-q"], capture_output=True, text=True, env={**__import__("os").environ, "OPENROUTER_API_KEY": ""}).stdout
 tests = [ln for ln in n.splitlines() if "tests collected" in ln or " collected" in ln]
-add("9", "Automated tests", "65", tests[0].split()[0] if tests else sum("::" in ln for ln in n.splitlines()), "tests/", "pytest")
+add("9", "Automated tests", "67", tests[0].split()[0] if tests else sum("::" in ln for ln in n.splitlines()), "tests/", "pytest")
 e = T.check_claim_line({"stockist_code": "STK0110", "batch_no": "K2430146", "qty": 705, "claim_type": "Expired", "claim_date": "2026-10-15"})
 add("9", "EML-017 claimed vs invoiced", "705 vs 441", f"705 vs {T.supply_of_batch_to_stockist('STK0110', 'K2430146')['packs_incl_free']:.0f}", "primary_sales rows 31143, 32812", "tests")
 add("9", "Neha's duplicate, packs", "272", f"{T.claim_record('CLM-2605-04488')['qty_claimed']:.0f}", "expiry_claims rows 3269, 3596", "tests")

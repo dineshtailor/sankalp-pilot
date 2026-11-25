@@ -54,10 +54,10 @@ def discovery():
     d.h1("1. Ranked problems")
     d.table(["#", "Problem (owner)", "Evidence (file · rows / page)", "₹ a year", "Method"], [
         ["P1", "**Stockists are short in the North while Kolkata is long.** Allocation shares not reviewed since FY25 (Kavita Rao, Vaishali Kapoor)",
-         "cnf_stock_snapshot.csv: cover 30-Sep-26 Lucknow 0.24 m, 23 SKUs at zero; Kolkata 3.8 m (3.5–6.5 across Apr–Sep). Demand share Lucknow 15.3%→20.7%, Kolkata 17.9%→13.0% (primary_sales.csv ordered_qty). Doc 4 p.1; Doc 5 CF-N02 3rd request; Doc 3 Annexure",
+         "cnf_stock_snapshot.csv: cover 30-Sep-26 Lucknow 0.24 m, 23 SKUs at zero; Kolkata 3.8 m (3.5–6.5 across Apr–Sep). Demand share Lucknow 15.3%→20.8%, Kolkata 17.8%→13.3% (primary_sales.csv ordered_qty). Doc 4 p.1; Doc 5 CF-N02 3rd request; Doc 3 Annexure",
          f"{CR(P3)} revenue protected", "Per SKU-month Apr–Sep 26: min(50% of North unsupplied packs, stock above 2 months at other C&Fs) × PTS, annualised"],
         ["P2", "**Quarter-end schemes create the expiry.** 10+2 since Dec 2024; FOC above the cap; a 100%-or-zero incentive drives the push (Arjun Sethi; CFO approves exceptions)",
-         "15 scheme SKUs = 61% of primary but 95% of expiry claims (L12M). Scheme lots come back at 3.1–9.4% vs 1.1–8.3% without scheme (PFL1302: 6.9% vs 1.4%) (analysis/11). 25–35% of each quarter billed in the 9-day window. FOC on orders below the 1.5× minimum: ₹1.05 cr L12M. Voice AUD-1001, AUD-1003. Doc 2 §4.4, Annex B",
+         "15 scheme SKUs = 61% of primary but 95% of expiry claims (L12M). Scheme lots come back at 3.1–9.4% vs 1.1–8.3% without scheme (PFL1302: 6.9% vs 1.4%) (analysis/11). 25–34% of each quarter billed in the 9-day window. FOC on orders below the 1.5× minimum: ₹1.05 cr L12M. Voice AUD-1001, AUD-1003. Doc 2 §4.4, Annex B",
          f"{CR(P2_hard)} (up to {CR(drop_ret + drop_foc)})", f"Excess returns on {len(drop)} SKUs recommended for drop, net of P3 ({L(drop_ret)}) + FOC above the 3% cap ({L(P2_cap)}); upside if FOC on dropped SKUs is not replaced. FOC is at PTS; true cost is lower"],
         ["P3", "**Claims credited that break the policy.** Two people, no check against sales (Neha Bansal)",
          f"expiry_claims.csv L12M: {P1i['duplicate_same_stockist_batch_qty']['claims']} repeats of same stockist+batch+qty (e.g. rows 3269/3596, ₹26,846, Doc 5 11-Aug); {P1i['expired_claim_after_90_days']['claims']} filed >90 days after expiry (e.g. row 1785, 112 days, ₹10,333); {P1i['qty_above_invoiced_excess_only']['claims']} above packs invoiced. 55% of repeats have no invoice ref; C&F told parties to resend (CALL 8662). Doc 2 §5.2, §5.5, §5.6",
@@ -73,7 +73,7 @@ def discovery():
     d.h1("2. Our view on the CFO's ask (an AI demand-forecasting tool)")
     d.image(CH / "kpis.png", width_cm=8.6, caption="Claims % of primary and fill rate by quarter, recomputed from the raw extracts")
     d.bullets([
-        "**The fill-rate fall is about where stock goes, not how much.** Partly filled lines have held at 92–93% since FY26; the decline comes from lines not supplied at all, "
+        "**The fill-rate fall is about where stock goes, not how much.** Partly filled lines have held at 96–97% since FY26; the decline comes from lines not supplied at all, "
         "concentrated where a C&F is at zero while another holds 3–6 months (P1). A national forecast is split by the same stale allocation tab (Doc 4, Vaishali).",
         "**Planning already reports about 14% SKU-month MAPE** (voice note AUD-1013; not testable, no forecast file).",
         "**The expiry is pushed, not forecast.** 95% of expiry value sits on scheme SKUs and scheme lots return far more often (P2). A model trained on primary sales "
@@ -93,7 +93,7 @@ def discovery():
                 widths_cm=[2.9, 1.5, 6.7, 6.7], size=6.8)
     d.h1(("5" if VOICE else "4") + ". Open questions for the client")
     d.table(["Question", "Source", "What we do with the answer"], [
-        ["How is the QBR fill rate computed? The extract gives 91.7% for Q1 FY26 vs 99.5% reported", "Doc 6 §1", "Align the KPI the pilot reports"],
+        ["How is the QBR fill rate computed? The extract gives 95.5% for Q1 FY26 vs 99.5% reported", "Doc 6 §1", "Align the KPI the pilot reports"],
         ["What are the current allocation shares, and when did they last change?", "Doc 4 (Kavita, Vaishali); Doc 3 §2.2", "Replace the order-share proxy in Rebalance"],
         ["Kolkata WMS go-live date; did Distribution confirm FEFO rules in writing (cl. 4.3)?", "Doc 3 cl. 4.3; Doc 4 p.2", "Confirm P4 cause; trigger Sch.4 root-cause report"],
         ["Can the 46 repeat claims already credited be recovered against open balances?", "Doc 5, 11/12-Aug", "Turn P3 into recovered cash"],
@@ -105,7 +105,7 @@ def discovery():
     ], widths_cm=[8.6, 3.6, 6.0], size=7)
     if not VOICE:
         d.p("The six voice notes are **not yet transcribed**, so no finding above relies on them.", size=8)
-    d.p("Method: all figures recomputed from the raw extracts after cleaning (745 duplicate sales rows and 23 duplicate claim rows removed, three date formats, "
+    d.p("Method: all figures recomputed from the raw extracts after cleaning (746 duplicate sales rows and 23 duplicate claim rows removed, repeated order quantities on 2,834 split lines counted once, three date formats, "
         "code variants such as CFE01 and PFL-1001 normalised). Scripts: sankalp-pilot/analysis/00–19. L12M = 01-Oct-25 to 30-Sep-26. Rows are spreadsheet rows (header = row 1).",
         size=7, color=MUTE, italic=True)
     return d.save(DOCS / "01_Discovery_Note.docx")
@@ -165,7 +165,7 @@ def architecture():
         "**No forecasting model, no RAG, no vector store.** Documents are short; rules are numbers (brief §05). Discovery shows the money is in claims, schemes and allocation.",
         "**Parallel check nodes** rather than one function, so each rule is visible in the graph, tested alone and easy to extend (e.g. a breakage-window check).",
         "**No interrupt()/checkpointer:** the person acts in SAP, outside the tool; nothing to resume.",
-        "**Stack:** FastAPI + plain HTML on Vercel (recommended path), region bom1; secrets in environment variables; 65 tests and a 20-record check set run in CI or on a laptop.",
+        "**Stack:** FastAPI + plain HTML on Vercel (recommended path), region bom1; secrets in environment variables; 67 tests and a 20-record check set run in CI or on a laptop.",
     ], size=8.5)
     return d.save(DOCS / "02_Architecture_Note.docx")
 
@@ -220,7 +220,7 @@ def srs():
         ["Unit", "Each rule just below, at and just above its limit; normalisers", "pytest -q tests/test_rules.py tests/test_tools.py", "pass"],
         ["Integration / API", "Graph end to end, not-found, injection, guarded note, reports", "pytest -q tests/test_api.py", "pass"],
         ["Acceptance (check set)", "20 real awkward records agreed by hand against raw rows", "python -m checks.run_checks", "**20 / 20** with gpt-4o-mini and code-only"],
-        ["Total", "", "pytest -q", "**65 passed**"],
+        ["Total", "", "pytest -q", "**67 passed**"],
     ], widths_cm=[3.0, 6.8, 5.0, 3.0], size=8)
     d.callout("Honest limits", ["Check set scored both ways: with gpt-4o-mini (all 18 emails read by the model; 19 of 20 notes by the model, C18 is a fixed routing message) and with the code-only fallback. The six voice notes are machine-transcribed; each claim was tested in the data, and untestable claims are open questions.",
                                 "Circular-check and rebalance estimates have no secondary-sales ground truth; they state their method on screen and are decisions for a person."], fill="warn", size=8.5)
@@ -242,7 +242,7 @@ def plan():
         ["2 Test, size, prioritise", "Requirements analysis", "10 hypotheses tested in pandas; ranked by ₹ with owner", "Discovery note; findings.json", "Every number has rows", "Done"],
         ["3 Design", "System design", "Users, graph, code/model split, failure handling, cost", "Architecture note; SRS", "Each FR mapped to a component", "Done"],
         ["4 Build in slices", "Implementation", "Data → rules → claim checker → email → batch → reports → UI", "Repo with AGENTS.md", "Diff reviewed; tests green", "Done"],
-        ["5 Validate", "Testing", "65 unit/API tests; 20-record check set", "Test report; RTM", "Check set recorded", "Done (model + code-only)"],
+        ["5 Validate", "Testing", "67 unit/API tests; 20-record check set", "Test report; RTM", "Check set recorded", "Done (model + code-only)"],
         ["6 Deploy", "Deployment", "Private GitHub → Vercel Hobby, bom1, env vars", "Live URL; /api/health", "Works on a new phone", "Ready, needs owner's accounts"],
         ["7 Present & hand over", "Maintenance", "≤12-slide deck, demo script, rollout plan", "Deck", "SteerCo sign-off", "Deck done"],
     ], widths_cm=[3.0, 2.6, 4.6, 3.0, 2.6, 2.0], size=7.5)
@@ -265,7 +265,7 @@ def runbook():
     d.h1("2. Verify locally (5 minutes)")
     d.table(["Step", "Command (PowerShell, in D:\\FDE\\Mini Project\\sankalp-pilot)"], [
         ["Install", "pip install -r requirements.txt uvicorn pytest httpx"],
-        ["Tests", "python -m pytest -q        → 65 passed"],
+        ["Tests", "python -m pytest -q        → 67 passed"],
         ["Check set", "python -m checks.run_checks        → 20/20 correct"],
         ["Run", "python -m uvicorn app:app --reload        → open http://127.0.0.1:8000"],
     ], widths_cm=[3, 14.8], size=8.5)

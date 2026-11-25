@@ -49,16 +49,16 @@
   "method": "50% of excess scheme-lot claims avoided by withholding schemes from stockist-SKUs already above 2.5 months cover (\u00a74.5), plus FOC above the 3% cap (\u00a74.4)"
  },
  "P3_allocation": {
-  "short_supplied_l12m_inr_actual": 475176494,
-  "short_if_same_national_supply_allocated_to_demand_inr": 475176494,
+  "short_supplied_l12m_inr_actual": 399428777,
+  "short_if_same_national_supply_allocated_to_demand_inr": 399428777,
   "attributable_to_allocation_inr": 0,
   "short_by_cnf_l12m_inr": {
-   "CF-E01": 50572574,
-   "CF-N01": 97576082,
-   "CF-N02": 123616056,
-   "CF-S01": 76533776,
-   "CF-S02": 64304950,
-   "CF-W01": 62573057
+   "CF-E01": 43129165,
+   "CF-N01": 80810573,
+   "CF-N02": 110514175,
+   "CF-S01": 62787558,
+   "CF-S02": 52489801,
+   "CF-W01": 49697505
   },
   "note": "ordered_qty includes re-orders after cancellations, so short value overstates lost sales; allocation share is the robust part"
  },
@@ -91,20 +91,20 @@
  "P6_breakage_pct_primary": 0.018,
  "P3_rebalance": {
   "months_covered": 6,
-  "movable_inr_in_window": 32674136,
-  "inr_per_year_revenue_protected": 65348273,
+  "movable_inr_in_window": 25963368,
+  "inr_per_year_revenue_protected": 51926736,
   "sensitivity_inr_per_year": {
-   "10": 22863208,
-   "25": 47950840,
-   "50": 65348273,
-   "75": 79005825,
-   "100": 89514832
+   "10": 20096521,
+   "25": 41098100,
+   "50": 51926736,
+   "75": 59255253,
+   "100": 63767108
   },
-  "unsupplied_inr_window": 122327936,
-  "half_of_unsupplied_inr_window": 61163968,
+  "unsupplied_inr_window": 107705990,
+  "half_of_unsupplied_inr_window": 53852995,
   "by_cnf_inr_window": {
-   "CF-N01": 6676201,
-   "CF-N02": 25997935
+   "CF-N01": 2793029,
+   "CF-N02": 23170339
   },
   "method": "Per SKU-month (Apr-Sep 2026): min(50% of North unsupplied packs, stock above 2 months cover at other CFAs at prior month-end) x PTS; annualised. Revenue at PTS, not margin.",
   "caveat": "Return-to-CDC then re-dispatch takes 10-14 days (Sch.2 2.5); the gain needs Head SC to act monthly."

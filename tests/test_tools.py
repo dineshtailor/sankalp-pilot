@@ -24,6 +24,21 @@ def test_duplicates_removed_and_codes_join():
     assert set(d.sales().stockist_code) <= set(d.stockists().index)
 
 
+def test_duplicates_after_formatting_are_removed():
+    """Rows 25051 and 25052 differ only in how they were written; after cleaning they are one line."""
+    s = d.sales()
+    assert d.QUALITY["primary_sales"]["format_duplicates_removed"] == 1
+    assert len(s[(s.invoice_no == "INV/N01/2412/021831") & (s.sku_code == "PFL1304") & (s.batch_no == "G2430405")]) == 1
+
+
+def test_split_line_counts_ordered_quantity_once():
+    """Rows 4437/4438: one order of 327 packs supplied as 297 + 30; ordered must not be counted twice."""
+    s = d.sales()
+    x = s[(s.invoice_no == "INV/E01/2405/003304") & (s.sku_code == "PFL1002")]
+    assert x.invoiced_qty.sum() == 327 and x.ordered_qty.sum() == 327
+    assert d.QUALITY["primary_sales"]["repeated_ordered_qty_blanked"] > 0
+
+
 def test_known_batch_is_found_with_source_rows():
     rec = T.batch_record("K2300101")
     assert rec["found"] and rec["sku_code"] == "PFL1001"

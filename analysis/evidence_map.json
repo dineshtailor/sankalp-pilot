@@ -3,8 +3,8 @@
   {
    "slides": "2, 3",
    "number": "Fill rate Q1 FY27",
-   "shown": "85.3%",
-   "recomputed": "85.3%",
+   "shown": "88.0%",
+   "recomputed": "88.0%",
    "ok": true,
    "source": "primary_sales: invoiced / ordered, Apr–Jun 26",
    "script": "01_reconcile"
@@ -12,8 +12,8 @@
   {
    "slides": "3",
    "number": "Fill rate Q1 FY25 → Q2 FY27",
-   "shown": "95% → 80%",
-   "recomputed": "95% → 80%",
+   "shown": "99% → 83%",
+   "recomputed": "99% → 83%",
    "ok": true,
    "source": "primary_sales: same method",
    "script": "01_reconcile"
@@ -21,8 +21,8 @@
   {
    "slides": "3",
    "number": "Fill rate Q1 FY26 (QBR: 99.5%)",
-   "shown": "91.7%",
-   "recomputed": "91.7%",
+   "shown": "95.5%",
+   "recomputed": "95.5%",
    "ok": true,
    "source": "primary_sales; QBR Doc 6 §1",
    "script": "01_reconcile"
@@ -30,8 +30,8 @@
   {
    "slides": "3",
    "number": "Partly filled lines since FY26",
-   "shown": "92–93%",
-   "recomputed": "92–93%",
+   "shown": "96–97%",
+   "recomputed": "96–97%",
    "ok": true,
    "source": "primary_sales: lines with supply",
    "script": "02_fillrate_defs"
@@ -57,10 +57,10 @@
   {
    "slides": "3, 12",
    "number": "Sales rows, raw → clean",
-   "shown": "93,809 → 93,064",
-   "recomputed": "93,809 → 93,064",
+   "shown": "93,809 → 93,063",
+   "recomputed": "93,809 → 93,063",
    "ok": true,
-   "source": "745 exact duplicates removed",
+   "source": "746 duplicates removed (1 after formatting)",
    "script": "00_sanity"
   },
   {
@@ -156,8 +156,8 @@
   {
    "slides": "7",
    "number": "Quarter billed in 9-day window, since Q3 FY25",
-   "shown": "25–35%",
-   "recomputed": "25–35%",
+   "shown": "25–34%",
+   "recomputed": "25–34%",
    "ok": true,
    "source": "primary_sales, 22nd to month-end",
    "script": "05_supply"
@@ -192,8 +192,8 @@
   {
    "slides": "4, 6",
    "number": "Lucknow demand share, FY25 → H1 FY27",
-   "shown": "15.3 → 20.7%",
-   "recomputed": "15.3 → 20.7%",
+   "shown": "15.3 → 20.8%",
+   "recomputed": "15.3 → 20.8%",
    "ok": true,
    "source": "primary_sales ordered_qty",
    "script": "05_supply"
@@ -201,8 +201,8 @@
   {
    "slides": "6",
    "number": "Kolkata demand share, FY25 → H1 FY27",
-   "shown": "17.9 → 13.0%",
-   "recomputed": "17.9 → 13.0%",
+   "shown": "17.8 → 13.3%",
+   "recomputed": "17.8 → 13.3%",
    "ok": true,
    "source": "primary_sales ordered_qty",
    "script": "05_supply"
@@ -228,8 +228,8 @@
   {
    "slides": "1, 2, 4, 10",
    "number": "Revenue protected a year (50% assumption)",
-   "shown": "₹6.53 cr",
-   "recomputed": "₹6.53 cr",
+   "shown": "₹5.19 cr",
+   "recomputed": "₹5.19 cr",
    "ok": true,
    "source": "Apr–Sep 26 snapshots × unsupplied North lines",
    "script": "08_rebalance"
@@ -426,8 +426,8 @@
   {
    "slides": "10",
    "number": "North unsupplied, Apr–Sep; 50%",
-   "shown": "₹12.23 cr; ₹6.12 cr",
-   "recomputed": "₹12.23 cr; ₹6.12 cr",
+   "shown": "₹10.77 cr; ₹5.39 cr",
+   "recomputed": "₹10.77 cr; ₹5.39 cr",
    "ok": true,
    "source": "primary_sales: ordered − invoiced × PTS",
    "script": "08_rebalance"
@@ -435,8 +435,8 @@
   {
    "slides": "10",
    "number": "Coverable from surplus; Lucknow; Gurugram",
-   "shown": "₹3.27 cr; ₹2.60 cr; ₹0.67 cr",
-   "recomputed": "₹3.27 cr; ₹2.60 cr; ₹0.67 cr",
+   "shown": "₹2.60 cr; ₹2.32 cr; ₹0.28 cr",
+   "recomputed": "₹2.60 cr; ₹2.32 cr; ₹0.28 cr",
    "ok": true,
    "source": "cnf_stock_snapshot above 2 months",
    "script": "08_rebalance"
@@ -444,8 +444,8 @@
   {
    "slides": "10 notes, 12",
    "number": "Sales protected if 10 / 25 / 75 / 100% is real",
-   "shown": "₹2.29 / 4.80 / 7.90 / 8.95 cr",
-   "recomputed": "₹2.29 / 4.80 / 7.90 / 8.95 cr",
+   "shown": "₹2.01 / 4.11 / 5.93 / 6.38 cr",
+   "recomputed": "₹2.01 / 4.11 / 5.93 / 6.38 cr",
    "ok": true,
    "source": "same method, changing only the 50%",
    "script": "08_rebalance"
@@ -480,8 +480,8 @@
   {
    "slides": "9",
    "number": "Automated tests",
-   "shown": "65",
-   "recomputed": "65",
+   "shown": "67",
+   "recomputed": "67",
    "ok": true,
    "source": "tests/",
    "script": "pytest"

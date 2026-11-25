@@ -103,25 +103,25 @@ text(s, Cm(17.2), Cm(3.8), Cm(15), Cm(9), ["**What the data shows (L12M, recompu
      f"3. **Claims are credited unchecked:** {P1['items']['duplicate_same_stockist_batch_qty']['claims']} repeat claims, {P1['items']['expired_claim_after_90_days']['claims']} past the 90-day limit, all credited or pending.",
      "A forecast fixes none of the three."], 13)
 card(s, Cm(1.5), Cm(9.0), Cm(7), Cm(3.6), f"{F['expiry_claims_logged_l12m_cr']:.2f} cr", "expiry claims logged in 12 months (2.7% of primary)", RED)
-card(s, Cm(9.0), Cm(9.0), Cm(7), Cm(3.6), "85.3%", "fill rate Q1 FY27 by quantity (QBR reports 90.9%)", AMBER)
+card(s, Cm(9.0), Cm(9.0), Cm(7), Cm(3.6), "88.0%", "fill rate Q1 FY27 by quantity (QBR reports 90.9%)", AMBER)
 card(s, Cm(1.5), Cm(13.1), Cm(14.5), Cm(3.6), f"{CR(P1['inr_per_year'] + P2)} + {CR(P3)}", f"saved a year ({CR(REFUNDS)} refunds + {L(cap)} free goods at PTS) + revenue protected a year (method on slide 10)", TEAL)
 
 # 3 ---------------------------------------------------------------- KPI chart
-s = frame("Claims 0.6% → 3.3% of primary while fill rate fell 95% → 80%", "The problem · 2/3", 3,
+s = frame("Claims 0.6% → 3.3% of primary while fill rate fell 99% → 83%", "The problem · 2/3", 3,
           "Point at FY25 Q3: the 10+2 scheme starts (Dec 2024) and FOC jumps to 5% of primary. Claims follow 12-18 months later as those lots expire.")
 s.shapes.add_picture(str(CH / "kpis.png"), Cm(1.5), Cm(3.8), width=Cm(18.5))
 text(s, Cm(20.8), Cm(3.9), Cm(11.8), Cm(13), ["**Reading the chart**",
-     "Claims rose from 0.64% (Q2 FY25) to 3.3% of primary; fill rate fell from 95% to 80%.",
-     "The fall is in lines **not supplied at all**: partly filled lines have held at 92–93% since FY26.",
+     "Claims rose from 0.64% (Q2 FY25) to 3.3% of primary; fill rate fell from 99% to 83%.",
+     "The fall is in lines **not supplied at all**: partly filled lines have held at 96–97% since FY26.",
      "FOC jumped to 4.95% of primary in Q3 FY25, when 10+2 started; claims follow as those lots expire.",
-     "QBR fill rate (99.5% Q1 FY26) does not reproduce from the extract (91.7%): **open question 1**.",
-     "Source: primary_sales.csv (93,064 rows after removing 745 duplicates), expiry_claims.csv (4,503 rows)."], 12.5)
+     "QBR fill rate (99.5% Q1 FY26) does not reproduce from the extract (95.5%): **open question 1**.",
+     "Source: primary_sales.csv (93,063 rows after removing 746 duplicates; repeated order quantities counted once), expiry_claims.csv (4,503 rows)."], 12.5)
 
 # 4 ---------------------------------------------------------------- ranked problems
 s = frame("Five problems, ranked by money, each with an owner", "The problem · 3/3", 4)
 table(s, Cm(1.5), Cm(3.7), Cm(31), [
     ["#", "Problem", "Owner", "₹ a year", "Evidence"],
-    ["1", "North short while Kolkata long: allocation shares never re-set", "Kavita Rao, Vaishali Kapoor", f"{CR(P3)} revenue", "cnf_stock_snapshot: cover 0.24 m vs 3.8 m; demand share Lucknow 15.3→20.7%"],
+    ["1", "North short while Kolkata long: allocation shares never re-set", "Kavita Rao, Vaishali Kapoor", f"{CR(P3)} revenue", "cnf_stock_snapshot: cover 0.24 m vs 3.8 m; demand share Lucknow 15.3→20.8%"],
     ["2", "Quarter-end schemes create expiry; FOC above the 3% cap", "Arjun Sethi (CFO for cap)", f"{CR(P2)} saved (up to {CR(drop_ret + drop_foc)})", "Scheme lots come back 3–9% vs 1–8%; 95% of claims on scheme SKUs; ₹1.05 cr FOC below the minimum order"],
     ["3", "Claims credited that break CO-POL-014 §5", "Neha Bansal", f"{L(P1['inr_per_year'])} refunds", "58 repeats (e.g. rows 3269/3596), 41 > 90 days after expiry, 21 above invoiced; 109 claims counted once; 55% of repeats have no invoice ref"],
     ["4", "FEFO broken at Kolkata since the WMS change", "Subhajit Banerjee", "₹11.8 lakh at risk (one-off)", "7 idle lots at Kolkata only, 92% Cardio and Pain; 64–79% of packs from a newer batch vs 10–56% elsewhere"],
@@ -144,7 +144,7 @@ s = frame("Stock is in the wrong place, and Kolkata stopped picking FEFO", "Why 
           "Kavita: 'national stock is sufficient' (QBR). True. It is in Kolkata. Return-to-CDC takes 10-14 days and needs your approval; the tool gives you the list each month.")
 s.shapes.add_picture(str(CH / "cover.png"), Cm(1.2), Cm(3.6), width=Cm(16))
 s.shapes.add_picture(str(CH / "fefo.png"), Cm(17.4), Cm(3.6), width=Cm(15.5))
-text(s, Cm(1.5), Cm(11.0), Cm(15.5), Cm(6.5), ["**Allocation:** shares set in the FY25 review, never repeated (Kavita, Doc 4). Lucknow demand share 15.3% → 20.7% with six new UP stockists; Kolkata 17.9% → 13.0% after losing two hospital accounts. Planning added a one-off top-up of 2,000 packs on each of three SKUs (Doc 5, 4 Sep).",
+text(s, Cm(1.5), Cm(11.0), Cm(15.5), Cm(6.5), ["**Allocation:** shares set in the FY25 review, never repeated (Kavita, Doc 4). Lucknow demand share 15.3% → 20.8% with six new UP stockists; Kolkata 17.8% → 13.3% after losing two hospital accounts. Planning added a one-off top-up of 2,000 packs on each of three SKUs (Doc 5, 4 Sep).",
      f"**Now (30-Sep-26):** {REB['moves']} return-to-CDC moves worth {L(REB['value_inr'])} would bring short C&Fs to one month of cover."], 11.5)
 text(s, Cm(17.6), Cm(11.0), Cm(15.3), Cm(6.5), ["**FEFO:** the jump follows Hooghly's WMS go-live (Feb 2026). Clause 4.3 needed written FEFO confirmation; self-assessment says 'Yes' (Doc 3 Annexure).",
      "Voice note: pickers take the front rack; old lots sit behind aisle 14. Data: **7 idle lots, ₹11.8 lakh, at Kolkata only**, 92% Cardio and Pain; the first reaches the 60-day block on 1 Mar 2027.",
@@ -161,7 +161,7 @@ table(s, Cm(1.5), Cm(3.8), Cm(31), [
     ["Kolkata FEFO", "No", "Schedule 4 root-cause report; monthly FEFO signal", "RDM East"],
 ], [6.0, 8.5, 10.5, 6.0], size=12, row_h=Cm(1.4))
 text(s, Cm(1.5), Cm(11.8), Cm(31), Cm(5), ["**Recommendation:** defer the 12-month demand-sensing vendor pilot (unverified '30% in 90 days', Doc 5). Planning reports about 14% SKU-month MAPE (voice note; not testable from the pack). Re-test accuracy by C&F after two quarters "
-     "without scheme distortion: 25–35% of every quarter since Q3 FY25 is billed in 9 days, so any model trained on primary sales learns the push, not the demand.",
+     "without scheme distortion: 25–34% of every quarter since Q3 FY25 is billed in 9 days, so any model trained on primary sales learns the push, not the demand.",
      "**Users chosen:** the claims executive (daily), the NSM and RSMs (quarterly circular) and the Head of Supply Chain (month-end). Each has a named decision; none is 'management'."], 13)
 
 # 8 ---------------------------------------------------------------- design
@@ -186,7 +186,7 @@ table(s, Cm(1.5), Cm(3.6), Cm(31), [
 ], [1.0, 5.0, 7.0, 18.0], size=10.5, row_h=Cm(1.05))
 card(s, Cm(1.5), Cm(11.9), Cm(9.9), Cm(3.5), "20 / 20", "real awkward records, on the live URL with gpt-4o-mini and with the code-only fallback", TEAL)
 card(s, Cm(12.05), Cm(11.9), Cm(9.9), Cm(3.5), "5 of 20", "correctly go to a person instead of a guess; every number shows its file and row or clause", AMBER)
-card(s, Cm(22.6), Cm(11.9), Cm(9.9), Cm(3.5), "65 tests", "every rule tested below, at and above its limit", NAVY)
+card(s, Cm(22.6), Cm(11.9), Cm(9.9), Cm(3.5), "67 tests", "every rule tested below, at and above its limit", NAVY)
 text(s, Cm(1.5), Cm(16.0), Cm(31), Cm(1), "**Live pilot:** https://sankalp-pilot-five.vercel.app  (no login needed; open it once before presenting to wake it)", 14, TEAL)
 
 # 10 --------------------------------------------------------------- money
@@ -240,7 +240,7 @@ text(s, Cm(17.6), Cm(3.8), Cm(15.3), Cm(13.5), ["**Asks**", "CFO: no cap excepti
 # 12 --------------------------------------------------------------- appendix
 s = frame("Appendix: sources and evidence map", "Appendix", 12)
 text(s, Cm(1.5), Cm(3.6), Cm(15.5), Cm(14), ["**Client documents**", "Doc 1 CE-BRF-2026-07 overview, data dictionary, CFO note · Doc 2 CO-POL-014 v4.2 trade terms §4–7, Annexure B · Doc 3 SC-AGR-CF-003 C&F agreement, Sch.2, Sch.4 · Doc 4 interview notes · Doc 5 inbox export · Doc 6 QBR Q1 FY27",
-     "**Data (7 extracts)** primary_sales (93,809 → 93,064 rows), expiry_claims (4,526 → 4,503), cnf_stock_snapshot (5,015), batch / SKU / stockist masters, claim_emails (30)",
+     "**Data (7 extracts)** primary_sales (93,809 → 93,063 rows), expiry_claims (4,526 → 4,503), cnf_stock_snapshot (5,015), batch / SKU / stockist masters, claim_emails (30)",
      "**Voice notes:** 6 recordings (Punjabi, Telugu, Hindi, Bengali, English) machine-transcribed with Gemini 2.5 Pro; every claim tested in the data (Discovery note §4)",
      f"**50% assumption, tested:** sales protected is {CR(F['P3_rebalance']['sensitivity_inr_per_year']['25'])} at 25% real demand, {CR(F['P3_rebalance']['sensitivity_inr_per_year']['50'])} at 50%, {CR(F['P3_rebalance']['sensitivity_inr_per_year']['75'])} at 75%, and at most {CR(F['P3_rebalance']['sensitivity_inr_per_year']['100'])} at 100%",
      "**Reproduce every number:** sankalp-pilot/analysis/00–19; every slide number is mapped in 07_Evidence_Appendix"], 11)
